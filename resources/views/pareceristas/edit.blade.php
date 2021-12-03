@@ -3,7 +3,7 @@
 @section('content')
 @include('flash')
 
-<form method="POST" action="/pareceristas/{{$parecerista->id}}">
+<form method="POST" action="{{ $app_url }}/pareceristas/{{$parecerista->id}}">
 @csrf
 @method('patch')
 @include('pareceristas.form')

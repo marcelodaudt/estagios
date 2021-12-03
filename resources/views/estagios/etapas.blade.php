@@ -52,7 +52,7 @@ Análise técnica do setor de Graduação realizada por: {{ $estagio->analise_te
   Parecer de mérito realizado por: <b>{{$estagio->analise_academica_user->name}}</b><br>
   Status do deferimento do parecer de mérito:<b>{{$estagio->tipodeferimento}}</b><br>
   @can('parecerista')
-          <a class="btn btn-info" onClick="return confirm('Tem certeza que deseja editar o parecer de mérito?')" href="/editar_analise_academica/{{$estagio->id}}">
+          <a class="btn btn-info" onClick="return confirm('Tem certeza que deseja editar o parecer de mérito?')" href="{{ $app_url }}/editar_analise_academica/{{$estagio->id}}">
           <i class="far fa-edit"></i> 
           Editar parecer de mérito </a> <br>
   @endcan('parecerista')

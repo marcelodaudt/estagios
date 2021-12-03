@@ -6,19 +6,19 @@
         <br>
     @endif
 
-    <div style="text-align: center;"><b style="color:red">Aviso Importante:</b> O termo deve ser entregue assinado para a instituição no mínimo 10 dias úteis antes do início do período do estágio no email <b>estagiosfflch@usp.br</b></div>
+    <div style="text-align: center;"><b style="color:red">Aviso Importante:</b> O termo deve ser entregue assinado para a instituição no mínimo 10 dias úteis antes do início do período do estágio no email <b>estagioseca@usp.br</b></div>
     <br>
 
     @can('empresa',$estagio->cnpj)
 
         @if(is_null($estagio->renovacao_parent_id))
             
-                <form method="POST" action="/enviar_para_analise_tecnica/{{$estagio->id}}">
+                <form method="POST" action="{{ $app_url }}/enviar_para_analise_tecnica/{{$estagio->id}}">
                 @csrf
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-success" name="enviar_para_analise_tecnica" value="enviar_para_analise_tecnica"
-                        onClick="return confirm('Tem certeza que quer enviar para o Setor de Graduação?')">
+                        onClick="return confirm('Tem certeza que quer enviar para o Setor de Estágio?')">
                             Salvar e enviar para Análise Técnica do <b>Setor de Graduação
                     </button>
                 </div>
@@ -34,7 +34,7 @@
 
         @else
 
-                <form method="POST" action="/enviar_para_analise_tecnica/{{$estagio->id}}">
+                <form method="POST" action="{{ $app_url }}/enviar_para_analise_tecnica/{{$estagio->id}}">
                 @csrf
 
                 <div class="form-group">
@@ -46,7 +46,7 @@
                 </div>
 
                     <button type="submit" class="btn btn-success" name="enviar_para_analise_tecnica" value="enviar_para_analise_tecnica_renovacao"
-                        onClick="return confirm('Tem certeza que quer enviar para o Setor de Graduação?')">
+                        onClick="return confirm('Tem certeza que quer enviar para o Setor de Estágio?')">
                             Salvar e enviar para Análise Técnica do <b>Setor de Graduação
                     </button>
                 </div>

@@ -7,7 +7,7 @@
     <div class="card-header"><b>Filtrar estatísticas sobre o sistema</b></div>
     <div class="card-body">
 
-        <form method="get" action="/estatisticas">
+        <form method="get" action="{{ $app_url }}/estatisticas">
         @csrf
             Estágios que iniciaram entre:
             <div class="row">

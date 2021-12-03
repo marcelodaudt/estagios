@@ -5,7 +5,7 @@
 <div class="card">
   <div class="card-header">
     <strong>Exibição </strong>
-    <a class="btn btn-outline-success btn-sm" href="/avisos/{{$aviso->id}}/edit" role="button">Editar</a>
+    <a class="btn btn-outline-success btn-sm" href="{{ $app_url }}/avisos/{{$aviso->id}}/edit" role="button">Editar</a>
   </div>
     <div class="row">
       <div class="col-sm-8">
@@ -44,7 +44,7 @@
 </div>
 <br>
 <div class="col-sm form-group">
-  <a class="btn btn-success" href="/avisos" role="button">Voltar</a>
+  <a class="btn btn-success" href="{{ $app_url }}/avisos" role="button">Voltar</a>
 </div>
 
 

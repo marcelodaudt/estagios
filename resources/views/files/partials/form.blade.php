@@ -5,7 +5,7 @@
 
         Enviar documentos (Apenas arquivos em formato PDF):
 
-        <form method="post" enctype="multipart/form-data" action="/files/store">
+        <form method="post" enctype="multipart/form-data" action="{{ $app_url }}/files/store">
             @csrf 
             <input type="hidden" name="estagio_id" value="{{ $estagio->id }}">
             <input type="file" name="file">
@@ -42,9 +42,9 @@
                     <tr>
                     <td>
                     @if($arquivo->tipo_documento == 'relatorioparcial' || $arquivo->tipo_documento == 'relatorioparcial_ciente')
-                        <a href="/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> (Relatório) {{$arquivo->original_name}} </a>
+                        <a href="{{ $app_url }}/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> (Relatório) {{$arquivo->original_name}} </a>
                     @else            
-                        <a href="/files/{{$arquivo->id}}.pdf"  type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
+                        <a href="{{ $app_url }}/files/{{$arquivo->id}}.pdf"  type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
                     @endif
                     </td>
 
@@ -58,7 +58,7 @@
 
                     @can('admin')
                         <td>
-                            <form method="post" action="/files/{{$arquivo->id}}">         
+                            <form method="post" action="{{ $app_url }}/files/{{$arquivo->id}}">         
                                 @csrf
                                 @method('delete')
                                 <button class="botao" type="submit" onclick="return confirm('Tem certeza que deseja deletar?');"><i class="fas fa-trash-alt"></i></button>
@@ -95,14 +95,14 @@
         <tr>
         <td>
             @if($arquivo->tipo_documento == 'relatorioparcial' || $arquivo->tipo_documento == 'relatorioparcial_ciente')
-                <a href="/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> (Relatório) {{$arquivo->original_name}}</a>
+                <a href="{{ $app_url }}/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> (Relatório) {{$arquivo->original_name}}</a>
             @else            
-                <a href="/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
+                <a href="{{ $app_url }}/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
             @endif            
         </td>
         <td>
             @if($arquivo->tipo_documento == 'relatorioparcial')
-                <a onClick="return confirm('Tem certeza que deseja confirmar ciência do relatório?')" href="/files/ciente_relatorio/{{$arquivo->id}}"> 
+                <a onClick="return confirm('Tem certeza que deseja confirmar ciência do relatório?')" href="{{ $app_url }}/files/ciente_relatorio/{{$arquivo->id}}"> 
                 <i class="fas fa-check"></i> Clique aqui para confirmar ciência do relatório </a>
             @elseif ($arquivo->tipo_documento == 'relatorioparcial_ciente')
                 Você marcou que está ciente deste relatório

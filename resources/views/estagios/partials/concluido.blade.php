@@ -2,7 +2,7 @@
 @include('estagios.partials.gerenciar_estagio')
 
     <br>
-    <form method="POST" action="/mover_analise_tecnica/{{$estagio->id}}">
+    <form method="POST" action="{{ $app_url }}/mover_analise_tecnica/{{$estagio->id}}">
     @csrf
         <button type="submit" class="btn btn-info" name="rescisao_action" value="rescisao"
                 onClick="return confirm('Tem certeza que deseja mover estágio para análise técnica?')" >
@@ -21,7 +21,7 @@
     <div class="card-header"><b>EM CASO DE RESCISÃO</b></div>
     <div class="card-body">
 
-    <form method="POST" action="/rescisao/{{$estagio->id}}">
+    <form method="POST" action="{{ $app_url }}/rescisao/{{$estagio->id}}">
     @csrf
         <div class="form-group">
             <label for="rescisao_motivo" class="required"><b>Justificativa: </b></label><br>
@@ -43,7 +43,7 @@
     <div class="card-body">
 
     
-    <form method="POST" action="/renovacao/{{$estagio->id}}">
+    <form method="POST" action="{{ $app_url }}/renovacao/{{$estagio->id}}">
     @csrf
     <button type="submit" class="btn btn-info" name="rescisao_action" value="rescisao"
             onClick="return confirm('Tem certeza que deseja renovar o estágio?')" >

@@ -3,12 +3,12 @@
 $estagios =  [
     [
         'text' => 'Listar',
-        'url'  => '/estagios',
+        'url'  => config('app.url') . '/estagios',
         'can'  => 'admin_ou_empresa'
     ],
     [
         'text' => 'Cadastrar',
-        'url'  => '/estagios/create',
+        'url'  => config('app.url') . '/estagios/create',
         'can'  => 'empresa'
     ],
 ];
@@ -16,13 +16,13 @@ $estagios =  [
 $vagas =  [
     [
         'text' => 'Listar',
-        'url'  => '/vagas',
+        'url'  => config('app.url') . '/vagas',
         'can'  => 'logado',
     ],
     
     [
         'text' => 'Cadastrar',
-        'url'  => '/vagas/create',
+        'url'  => config('app.url') . '/vagas/create',
         'can'  => 'logado',
     ],
 ];
@@ -30,22 +30,22 @@ $vagas =  [
 $empresas =  [
     [
         'text' => 'Listar',
-        'url'  => '/empresas',
+        'url'  => config('app.url') . '/empresas',
     ],
     [
         'text' => 'Cadastrar',
-        'url'  => '/empresas/create',
+        'url'  => config('app.url') . '/empresas/create',
     ],
 ];
 
 $avisos =  [
     [
         'text' => 'Listar',
-        'url'  => '/avisos',
+        'url'  => config('app.url') . '/avisos',
     ],
     [
         'text' => 'Cadastrar',
-        'url'  => '/avisos/create',
+        'url'  => config('app.url') . '/avisos/create',
         'can'     => 'admin',
     ],
 ];
@@ -53,12 +53,12 @@ $avisos =  [
 $pareceristas =  [
     [
         'text' => 'Listar',
-        'url'  => '/pareceristas',
+        'url'  => config('app.url') . '/pareceristas',
         'can'     => 'admin',
     ],
     [
         'text' => 'Cadastrar',
-        'url'  => '/pareceristas/create',
+        'url'  => config('app.url') . '/pareceristas/create',
         'can'     => 'admin',
     ],
 ];
@@ -66,17 +66,17 @@ $pareceristas =  [
 $menudoparecerista =  [
     [
         'text' => 'Todos os meus Pareceres',
-        'url'  => '/meus_pareceres',
+        'url'  => config('app.url') . '/meus_pareceres',
         'can'     => 'parecerista',
     ],
     [
         'text' => 'Estágios para Parecer de Mérito e Análises de Aditivo',
-        'url'  => '/parecer_merito',
+        'url'  => config('app.url') . '/parecer_merito',
         'can'     => 'parecerista',
     ],
     [
         'text' => 'Estágios Rescindidos',
-        'url'  => '/estagios_rescindidos',
+        'url'  => config('app.url') . '/estagios_rescindidos',
         'can'     => 'parecerista',
     ],
 ];
@@ -95,6 +95,7 @@ $right_menu = [
 
 return [
     'title' => '',
+    #'dashboard_url' => '/estagios',
     'skin' => env('USP_THEME_SKIN', 'uspdev'),
     'app_url' => config('app.url'),
     'logout_method' => 'POST',
@@ -129,13 +130,13 @@ return [
         ],
         [
             'text'    => 'Atualização do Cadastro  da Empresa',
-            'url'     => '/empresa_update',
+            'url'     => config('app.url') . '/empresa_update',
             'can'     => 'empresa',
         ],
 
         [
             'text'    => 'Acessar outra Empresa',
-            'url'     => '/acessar_outra_empresa',
+            'url'     => config('app.url') . '/acessar_outra_empresa',
             'can'     => 'empresa',
         ],
 
@@ -147,7 +148,7 @@ return [
 
         [
             'text'    => 'Estatísticas do Sistema',
-            'url'     => '/estatisticas',
+            'url'     => config('app.url') . '/estatisticas',
             'can'     => 'logado',
         ],
     ]

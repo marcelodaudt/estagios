@@ -12,11 +12,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 form-group">
-                            <form method="POST" action="/analise_alteracao/{{$aditivo->id}}">
+                            <form method="POST" action="{{ $app_url }}/analise_alteracao/{{$aditivo->id}}">
                                 @csrf
                                 <b>Aditivo de Alteração Pendente:</b> {{ $aditivo->alteracao }}<br><br>
 
-                                <b>Comentário do setor de graduação sobre o aditivo:</b> {{ $aditivo->comentario_graduacao }}<br><br>
+                                <b>Comentário do setor de estágio sobre o aditivo:</b> {{ $aditivo->comentario_graduacao }}<br><br>
 
                                 <label for="comentario_parecerista">Favor especificar motivo do deferimento/indeferimento: </label><br>
                                 <textarea name="comentario_parecerista" rows="5" cols="60"></textarea><br>
@@ -49,7 +49,7 @@
             <div class="row">
             <div class="col-4 form-group">
                 <b>Gerenciar Parecerista:</b><br><br>
-                <form method="POST" action="/parecer_merito/{{$estagio->id}}">
+                <form method="POST" action="{{ $app_url }}/parecer_merito/{{$estagio->id}}">
                 @csrf
                 
                 <select name="numparecerista">
@@ -84,33 +84,33 @@
                     <b>Gerar Documentos:</b><br><br>
 
                     @if(($estagio->desempenhoacademico)!=null)
-                        <a href="/pdfs/parecer/{{$estagio->id}}"target="_blank" >
+                        <a href="{{ $app_url }}/pdfs/parecer/{{$estagio->id}}"target="_blank" >
                         <i class="fas fa-file-pdf"></i> </a>
                         Gerar PDF do Parecer de Mérito 
                     @endif
 
                     @if(is_null($estagio->renovacao_parent_id))
                         <br>
-                        <a href="/pdfs/termo/{{$estagio->id}}"target="_blank" >
+                        <a href="{{ $app_url }}/pdfs/termo/{{$estagio->id}}"target="_blank" >
                         <i class="fas fa-file-pdf"></i> </a>
                         Gerar PDF do Termo de Ciência 
                     @else
                         <br>
-                        <a href="/pdfs/renovacao/{{$estagio->id}}" target="_blank" >
+                        <a href="{{ $app_url }}/pdfs/renovacao/{{$estagio->id}}" target="_blank" >
                         <i class="fas fa-file-pdf"></i> </a>
                         Gerar PDF do Termo de Ciência para Renovação
                     @endif    
 
                     @if(($estagio->aditivos)->isNotEmpty())
                         <br>
-                        <a href="/pdfs/aditivo/{{$estagio->id}}" target="_blank" >
+                        <a href="{{ $app_url }}/pdfs/aditivo/{{$estagio->id}}" target="_blank" >
                         <i class="fas fa-file-pdf"></i> </a>
                         Gerar PDF do Parecer de Alteração
                     @endif
 
                     @if(($estagio->status)=='rescisao')
                         <br>
-                        <a href="/pdfs/rescisao/{{$estagio->id}}" target="_blank" >
+                        <a href="{{ $app_url }}/pdfs/rescisao/{{$estagio->id}}" target="_blank" >
                         <i class="fas fa-file-pdf"></i> </a>
                         Gerar PDF do Termo de Rescisão
                     @endif
@@ -120,25 +120,25 @@
 
                 <div class="col-4 form-group">
                     <b>Opções de Envio de Email automático:</b><br><br>
-                    <a onClick="return confirm('Tem certeza que deseja um email para o parecerista?')" href="/emails/enviar_para_parecerista/{{$estagio->id}}">
+                    <a onClick="return confirm('Tem certeza que deseja um email para o parecerista?')" href="{{ $app_url }}/emails/enviar_para_parecerista/{{$estagio->id}}">
                     <i class="fas fa-envelope-open-text"></i> </a>
                     Enviar e-mail com parecer em anexo para o e-mail USP do parecerista
 
                     @if(is_null($estagio->renovacao_parent_id))
                         <br>
-                        <a onClick="return confirm('Tem certeza que deseja um email para a empresa?')" href="/emails/enviar_para_analise_tecnica/{{$estagio->id}}">
+                        <a onClick="return confirm('Tem certeza que deseja um email para a empresa?')" href="{{ $app_url }}/emails/enviar_para_analise_tecnica/{{$estagio->id}}">
                         <i class="fas fa-envelope-open-text"></i> </a>
                         Enviar E-mail contendo o Termo de Ciência para a empresa   
                     @else
                         <br>
-                        <a onClick="return confirm('Tem certeza que deseja um email para a empresa?')" href="/emails/enviar_para_analise_tecnica_renovacao/{{$estagio->id}}">
+                        <a onClick="return confirm('Tem certeza que deseja um email para a empresa?')" href="{{ $app_url }}/emails/enviar_para_analise_tecnica_renovacao/{{$estagio->id}}">
                         <i class="fas fa-envelope-open-text"></i> </a>  
                         Enviar E-mail contendo o Termo de Ciência para Renovação para a empresa    
                     @endif    
 
                     @if(($estagio->aditivos)->isNotEmpty())
                         <br>
-                        <a onClick="return confirm('Tem certeza que deseja um email para a empresa?')" href="/emails/alteracao_empresa/{{$estagio->id}}">
+                        <a onClick="return confirm('Tem certeza que deseja um email para a empresa?')" href="{{ $app_url }}/emails/alteracao_empresa/{{$estagio->id}}">
                         <i class="fas fa-envelope-open-text"></i> </a>
                         Enviar E-mail contendo as alterações para a empresa.
                     @endif
@@ -151,7 +151,7 @@
             <div class="row">
                 <div class="col-12 form-group">
                 <br><hr><br>
-                    <form method="POST" action="/analise_alteracao/{{$aditivo->id}}">
+                    <form method="POST" action="{{ $app_url }}/analise_alteracao/{{$aditivo->id}}">
                         @csrf
                         <b>Aditivo de Alteração Pendente:</b> {{ $aditivo->alteracao }}<br><br>
 
@@ -195,7 +195,7 @@
 
             <div class="row">
                 <div class="col-12 form-group">
-                    <form method="POST" action="/analise_alteracao/{{$aditivo->id}}">
+                    <form method="POST" action="{{ $app_url }}/analise_alteracao/{{$aditivo->id}}">
                         @csrf
                         <br>
                         <b>Aditivo de Alteração Pendente:</b> {{ $aditivo->alteracao }}<br><br>

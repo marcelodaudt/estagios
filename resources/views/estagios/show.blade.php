@@ -22,18 +22,18 @@
         <div class="card-header"><b>Gerar Documentos</b></div>
           <div class="card-body">
               @if(is_null($estagio->renovacao_parent_id))
-                  <a href="/pdfs/termo/{{$estagio->id}}.pdf" type="application/pdf" target="pdf-frame">
+                  <a href="{{ $app_url }}/pdfs/termo/{{$estagio->id}}.pdf" type="application/pdf" target="pdf-frame">
                   <i class="fas fa-file-pdf"></i> </a>
                   Gerar PDF do Termo de Ciência 
               @else
-                  <a href="/pdfs/renovacao/{{$estagio->id}}" target="_blank" >
+                  <a href="{{ $app_url }}/pdfs/renovacao/{{$estagio->id}}" target="_blank" >
                   <i class="fas fa-file-pdf"></i> </a>
                   Gerar PDF do Termo de Ciência para Renovação
               @endif
 
               @if(($estagio->aditivos)->isNotEmpty())
                   <br>
-                  <a href="/pdfs/aditivo/{{$estagio->id}}" target="_blank" >
+                  <a href="{{ $app_url }}/pdfs/aditivo/{{$estagio->id}}" target="_blank" >
                   <i class="fas fa-file-pdf"></i> </a>
                   Gerar PDF do Parecer de Alteração
               @endif
@@ -152,7 +152,7 @@
 
     @can('admin_ou_empresa',$estagio->cnpj)
     <br>
-    <a class="btn btn-danger" onClick="return confirm('Tem certeza que deseja cancelar o estágio?')" href="/cancelar_estagio/{{$estagio->id}}">
+    <a class="btn btn-danger" onClick="return confirm('Tem certeza que deseja cancelar o estágio?')" href="{{ $app_url }}/cancelar_estagio/{{$estagio->id}}">
         Cancelar Estágio </a>
 
     @endcan

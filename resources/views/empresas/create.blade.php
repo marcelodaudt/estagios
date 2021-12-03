@@ -11,7 +11,7 @@
 @section('content')
 @include('flash')
 
-<form method="POST" action="/empresas">
+<form method="POST" action="{{ $app_url }}/empresas">
   @csrf
     @include('empresas.form') 
 </form>

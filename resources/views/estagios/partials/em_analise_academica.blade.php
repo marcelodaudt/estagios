@@ -4,7 +4,7 @@
       <div class="card">
               <div class="card-header"><b>Retornar Estágio</b></div> 
               <div class="card-body">
-                      <a class="btn btn-success" onClick="return confirm('Tem certeza que deseja retornar o estágio para a etapa anterior?')" href="/voltar_analise_academica/{{$estagio->id}}">
+                      <a class="btn btn-success" onClick="return confirm('Tem certeza que deseja retornar o estágio para a etapa anterior?')" href="{{ $app_url }}/voltar_analise_academica/{{$estagio->id}}">
                       <i class="fas fa-undo"></i> 
                       Retornar estágio para etapa anterior </a> <br>
               </div>
@@ -24,7 +24,7 @@
 
 @include('estagios.partials.jupiter')
 
-<form method="POST" action="/analise_academica/{{$estagio->id}}">
+<form method="POST" action="{{ $app_url }}/analise_academica/{{$estagio->id}}">
     @csrf
 
     <label for="horariocompativel">O Horário é compatível com os horários disponíveis na grade horária do aluno?: </label>

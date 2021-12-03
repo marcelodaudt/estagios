@@ -29,11 +29,11 @@
         <tr>
           <td>{{$aviso->titulo}}</a></td>
           <td >
-            <a class="row-sm" href="/avisos/{{$aviso->id}}/edit"><i class="far fa-edit"></i></a>
-            <a class="row-sm" href="/avisos/{{$aviso->id}}"><i class="fas fa-external-link-alt"></i></a>
+            <a class="row-sm" href="{{ $app_url }}/avisos/{{$aviso->id}}/edit"><i class="far fa-edit"></i></a>
+            <a class="row-sm" href="{{ $app_url }}/avisos/{{$aviso->id}}"><i class="fas fa-external-link-alt"></i></a>
            
           
-            <form class="row-sm" method="POST" action="/avisos/{{$aviso->id}}">
+            <form class="row-sm" method="POST" action="{{ $app_url }}/avisos/{{$aviso->id}}">
               @csrf
               @method('delete')
               <button type="submit" class=" btn btn-outline-primary btn-sm"><i class="fas fa-trash-alt"></i></button>

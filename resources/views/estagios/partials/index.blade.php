@@ -14,7 +14,7 @@ button {
   <div class="card-body">
 
     @can('empresa')
-        <a href="/estagios/create" class="btn btn-success"> Novo/a estagiário/a </a>
+        <a href="{{ $app_url }}/estagios/create" class="btn btn-success"> Novo/a estagiário/a </a>
         <br>
     @endcan('empresa')
     <br>
@@ -42,7 +42,7 @@ button {
         <tr>
 
             <td>
-            <a href ="/estagios/{{$estagio->id}}"> {{$estagio->numero_usp}}</a>
+            <a href ="{{ $app_url }}/estagios/{{$estagio->id}}"> {{$estagio->numero_usp}}</a>
             </td>
 
             <td>
@@ -95,7 +95,7 @@ button {
 
             @can('admin')
             <td>
-                <form  method="POST" action="/estagios/{{$estagio->id}}">         
+                <form  method="POST" action="{{ $app_url }}/estagios/{{$estagio->id}}">         
                     @csrf
                     @method('delete')
                     <button class="botao" type="submit" onclick="return confirm('Tem certeza que deseja deletar?');"><i class="fas fa-trash-alt"></i></button>

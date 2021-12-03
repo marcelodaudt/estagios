@@ -11,7 +11,7 @@
 
 @section('content')
 
-<form method="POST" action="/estagios/{{$estagio->id}}">
+<form method="POST" action="{{ $app_url }}/estagios/{{$estagio->id}}">
 @csrf
 @method('patch')
 @include ('estagios.form')

@@ -25,13 +25,13 @@
     <tbody>
       @foreach($vagas as $vaga)
       <tr>
-        <td><a href="/vagas/{{$vaga->id}}">{{ $vaga->titulo }}</a></td>
+        <td><a href="{{ $app_url }}/vagas/{{$vaga->id}}">{{ $vaga->titulo }}</a></td>
         <td> @if($vaga->user){{ $vaga->user->name }}@endif
         </td>
         <td>{{$vaga->status}}</td>
         <td>{{$vaga->divulgar_ate}}</td>
         <td> 
-          <form method="POST" action="/vagas/{{$vaga->id}}">
+          <form method="POST" action="{{ $app_url }}/vagas/{{$vaga->id}}">
             @csrf
             @method('delete')
             <button type="submit" style="background-color: transparent;border: none;" onclick="return confirm('Tem certeza que deseja deletar?');"><i class="far fa-trash-alt" color="#007bff"></i></button>

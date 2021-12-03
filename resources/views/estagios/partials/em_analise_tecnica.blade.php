@@ -1,5 +1,5 @@
 <br>
-<div style="text-align: center;"><b style="color:red">Aviso Importante:</b> O termo deve ser entregue assinado para a instituição no mínimo 10 dias úteis antes do início do período do estágio no email <b>estagiosfflch@usp.br</b></div>
+<div style="text-align: center;"><b style="color:red">Aviso Importante:</b> O termo deve ser entregue assinado para a instituição no mínimo 10 dias úteis antes do início do período do estágio no email <b>estagioseca@usp.br</b></div>
 <br>
 
 @can('admin')
@@ -8,7 +8,7 @@
 <div class="card-header"><b>Justificativa da análise técnica</b></div>
 <div class="card-body">
 
-<form method="POST" action="/analise_tecnica/{{$estagio->id}}">
+<form method="POST" action="{{ $app_url }}/analise_tecnica/{{$estagio->id}}">
     @csrf
     <details>
         <summary>Clique aqui para visualizar mais informações sobre a matricula vigente</summary>
@@ -52,7 +52,7 @@
 
 @foreach($estagio->aditivos->where('aprovado_graduacao','=',0)->where('comentario_graduacao','=',null) as $aditivo)
 <b>Opções de Aditivo Pendente</b>
-<form method="GET" action="/pdfs/aditivo/{{$estagio->id}}">
+<form method="GET" action="{{ $app_url }}/pdfs/aditivo/{{$estagio->id}}">
     @csrf
     <button type="submit" class="btn btn-info" name="aditivo_action" value="pendente">
         <i class="fas fa-file-pdf"></i> Gerar PDF com requisição do Aditivo

@@ -7,7 +7,7 @@
   <script src="{{asset('/js/empresas.js')}}"></script>
 @endsection('javascript_head')
 
-<form method="POST" action="/login/empresa"> 
+<form method="POST" action="{{ $app_url }}/login/empresa"> 
 @csrf
 <div class="card">
   <div class="card-header"><b>Login para empresas</b></div>
@@ -17,7 +17,7 @@
   @if($info_acesso)
   <div class="row">
       <div class="col-sm form-group">
-          <b>Para iniciar o processo de criação de conta no sistema de estágios da FFLCH-USP, insira o CNPJ da empresa e o e-mail do representante 
+          <b>Para iniciar o processo de criação de conta no sistema de estágios da ECA-USP, insira o CNPJ da empresa e o e-mail do representante 
           da empresa. O e-mail será vinculado a conta e utilizado em caso de perda de senha.</b>
       </div>
   </div>

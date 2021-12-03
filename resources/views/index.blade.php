@@ -12,14 +12,14 @@
   <div class="row">
 
     <div class="col-sm">
-        <a href="/login/usp" class="btn btn-success"> 
+        <a href="{{ $app_url }}/login/usp" class="btn btn-success"> 
           <i class="fa fa-university" aria-hidden="true"></i>
           Login USP 
         </a>
     </div>
 
     <div class="col-sm">
-      <form method="GET" action="/login/empresa">
+      <form method="GET" action="{{ $app_url }}/login/empresa">
         @csrf
 
         <button type="submit" class="btn btn-success" name="login_action" value="email">
@@ -53,7 +53,7 @@
               <td><h4>{{$vaga->titulo}}</h4>
               Carga horária semanal: {{ $vaga->expediente }} horas <br>
               Valor da bolsa: R$ {{ $vaga->salario }}</td>
-              <td><a href="/vagas/{{$vaga->id}}">Acessar vaga para mais detalhes</a></td>
+              <td><a href="{{ $app_url }}/vagas/{{$vaga->id}}">Acessar vaga para mais detalhes</a></td>
             @endif
           </tr>
           @endforeach

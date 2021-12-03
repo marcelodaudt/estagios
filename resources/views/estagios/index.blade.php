@@ -13,7 +13,7 @@
 
 
 @can('admin')
-<form method="get" action="/estagios">
+<form method="get" action="{{ $app_url }}/estagios">
   <div class="row">
     <div class=" col-sm input-group">
       <input type="text" class="form-control" name="busca" value="{{Request()->busca}}" placeholder="Busca por número USP ou nome do/a aluno/a">  

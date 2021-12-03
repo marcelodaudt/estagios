@@ -11,21 +11,21 @@
 @can('empresa',$estagio->cnpj)
 
         <br>
-        <a href="/pdfs/rescisao/{{$estagio->id}}" target="_blank" >
+        <a href="{{ $app_url }}/pdfs/rescisao/{{$estagio->id}}" target="_blank" >
         <i class="fas fa-file-pdf"></i> </a>
         Gerar PDF do Termo de Rescisão 
         </a>
         <br>
-        <a href="/pdfs/parecer/{{$estagio->id}}"target="_blank" >
+        <a href="{{ $app_url }}/pdfs/parecer/{{$estagio->id}}"target="_blank" >
         <i class="fas fa-file-pdf"></i> </a>
         Gerar PDF do Parecer de Mérito 
         <br>
         @if(is_null($estagio->renovacao_parent_id))
-            <a href="/pdfs/termo/{{$estagio->id}}.pdf" type="application/pdf" target="pdf-frame">
+            <a href="{{ $app_url }}/pdfs/termo/{{$estagio->id}}.pdf" type="application/pdf" target="pdf-frame">
             <i class="fas fa-file-pdf"></i> </a>
             Gerar PDF do Termo de Ciência 
         @else
-            <a href="/pdfs/renovacao/{{$estagio->id}}" target="_blank" >
+            <a href="{{ $app_url }}/pdfs/renovacao/{{$estagio->id}}" target="_blank" >
             <i class="fas fa-file-pdf"></i> </a>
             Gerar PDF do Termo de Ciência para Renovação
         @endif
@@ -41,7 +41,7 @@
         <br>
         Enviar relatório final (Apenas arquivos em formato PDF):
 
-        <form method="post" enctype="multipart/form-data" action="/files/store_relatorio">
+        <form method="post" enctype="multipart/form-data" action="{{ $app_url }}/files/store_relatorio">
             @csrf 
             <div class="col-sm form-group">
                 <input type="hidden" name="estagio_id" value="{{ $estagio->id }}">
@@ -62,10 +62,10 @@
                 @if($arquivo->tipo_documento == 'Relatorio')
                 <tr>
                 <td>            
-                <a href="/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
+                <a href="{{ $app_url }}/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
                 </td>
                 <td>
-                    <form method="post" action="/files/{{$arquivo->id}}">         
+                    <form method="post" action="{{ $app_url }}/files/{{$arquivo->id}}">         
                         @csrf
                         @method('delete')
                         <button class="botao" type="submit" onclick="return confirm('Tem certeza que deseja deletar?');"><i class="fas fa-trash-alt"></i></button>
@@ -83,14 +83,14 @@
         <b>Justificativa do parecerista: </b> {{$estagio->avaliacaodescricao}}<br><br>
         @endif
 
-        <a class="btn btn-warning" onClick="return confirm('Tem certeza que deseja reativar o estágio?')" href="/retornar_rescisao/{{$estagio->id}}">
+        <a class="btn btn-warning" onClick="return confirm('Tem certeza que deseja reativar o estágio?')" href="{{ $app_url }}/retornar_rescisao/{{$estagio->id}}">
         <i class="fas fa-undo"></i>Reativar estágio </a> 
 
         <a class="btn btn-info" onClick="return confirm('Tem certeza que deseja um email para o parecerista?')" 
-        href="/emails/analise_rescisao/{{$estagio->id}}"><i class="fas fa-envelope-open-text"></i>  Enviar email de aviso para o parecerista</a>
+        href="{{ $app_url }}/emails/analise_rescisao/{{$estagio->id}}"><i class="fas fa-envelope-open-text"></i>  Enviar email de aviso para o parecerista</a>
 
         <a class="btn btn-info" onClick="return confirm('Tem certeza que deseja um email para a empresa?')" 
-        href="/emails/rescisao_empresa/{{$estagio->id}}"><i class="fas fa-envelope-open-text"></i>  Enviar email de aviso para a empresa</a>
+        href="{{ $app_url }}/emails/rescisao_empresa/{{$estagio->id}}"><i class="fas fa-envelope-open-text"></i>  Enviar email de aviso para a empresa</a>
         <br><br>
 
         <br>
@@ -117,14 +117,14 @@
                 @if($arquivo->tipo_documento == 'Relatorio')
                     <tr>
                     <td>            
-                    <a href="/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
+                    <a href="{{ $app_url }}/files/{{$arquivo->id}}.pdf" type="application/pdf" target="pdf-frame"><i class="fas fa-file-pdf"></i> {{$arquivo->original_name}} </a>
                     </td>
                     </tr>
                 @endif
             @endforeach
         </table>
 
-        <form method="POST" action="/avaliacao/{{$estagio->id}}">
+        <form method="POST" action="{{ $app_url }}/avaliacao/{{$estagio->id}}">
             @csrf
             <label for="condicaodeferimento">Avalie o caráter do relatório: </label> 
                 <select name="avaliacao_empresa" class="form-control" id="avaliacao_empresa">

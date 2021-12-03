@@ -12,7 +12,7 @@
 @include('flash')
 
 
-<form method="POST" action="/avisos/{{$aviso->id}}"> 
+<form method="POST" action="{{ $app_url }}/avisos/{{$aviso->id}}"> 
 @csrf
 @method('patch')
 <div class="card">

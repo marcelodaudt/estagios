@@ -10,7 +10,7 @@
 @section('content')
 @include('flash')
 
-<form method="POST" action="/empresas/{{ $empresa->id }}">
+<form method="POST" action="{{ $app_url }}/empresas/{{ $empresa->id }}">
   @csrf
   @method('patch')
     @include('empresas.form')    

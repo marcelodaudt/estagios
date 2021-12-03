@@ -3,7 +3,7 @@
         <div class="card-body">
 
         @can('admin_ou_empresa',$estagio->cnpj)
-        <form method="POST" action="/enviar_alteracao/{{$estagio->id}}">
+        <form method="POST" action="{{ $app_url }}/enviar_alteracao/{{$estagio->id}}">
             @csrf
             <div class="row">
                 <div class="form-group">
@@ -27,7 +27,7 @@
 <div class="card">
     <div class="card-header"><b>Voltar Estágio</b></div>
     <div class="card-body">
-        <a class="btn btn-info" onClick="return confirm('Tem certeza que deseja retornar o estágio para a etapa anterior?')" href="/voltar_aditivo/{{$estagio->id}}">
+        <a class="btn btn-info" onClick="return confirm('Tem certeza que deseja retornar o estágio para a etapa anterior?')" href="{{ $app_url }}/voltar_aditivo/{{$estagio->id}}">
         <i class="fas fa-undo"></i> 
         Retornar estágio para concluído</a> <br>
     </div>

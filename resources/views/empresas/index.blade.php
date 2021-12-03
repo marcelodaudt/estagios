@@ -8,9 +8,9 @@
 @include('flash')
 
 @can('admin')
-<form method="get" action="/empresas">
+<form method="get" action="{{ $app_url }}/empresas">
 @else
-<form method="get" action="/acessar_outra_empresa">
+<form method="get" action="{{ $app_url }}/acessar_outra_empresa">
 @endcan
     <div class="row">
         <div class="col-sm input-group">
@@ -40,7 +40,7 @@
             <tr>
                 <td>
                     @can('admin_ou_empresa',$empresa->cnpj)
-                        <a href="/empresas/{{$empresa->id}}">{{$empresa->nome}}</a>
+                        <a href="{{ $app_url }}/empresas/{{$empresa->id}}">{{$empresa->nome}}</a>
                     @else
                         {{$empresa->nome}}
                     @endcan
@@ -52,23 +52,23 @@
                 <td style="text-align:center">
 
                 @can('admin_ou_empresa',$empresa->cnpj)
-                    <a href="/empresas/{{$empresa->id}}/edit"><i class="fas fa-edit"></i></a>
+                    <a href="{{ $app_url }}/empresas/{{$empresa->id}}/edit"><i class="fas fa-edit"></i></a>
                 @else
-                    <form method="POST" action="/logandoComoEmpresa/{{$empresa->cnpj_number}}" class="form-inline">
+                    <form method="POST" action="{{ $app_url }}/logandoComoEmpresa/{{$empresa->cnpj_number}}" class="form-inline">
                         @csrf
                         <button type="submit" class="btn btn-link"><i class="fas fa-user-secret"></i></button>
                     </form>
                 @endcan
 
                 @can('admin')
-                    <form method="POST" action="/logandoComoEmpresa/{{ $empresa->cnpj_number }}" class="form-inline">
+                    <form method="POST" action="{{ $app_url }}/logandoComoEmpresa/{{ $empresa->cnpj_number }}" class="form-inline">
                         @csrf
                         <button type="submit" class="btn btn-link"><i class="fas fa-user-secret"></i></button>
                     </form>
                 @endcan('admin') 
 
                 <!--
-                <form method="POST" action="/empresas/{{$empresa->id}}" class="form-inline">
+                <form method="POST" action="{{ $app_url }}/empresas/{{$empresa->id}}" class="form-inline">
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-link" onclick="return confirm('Tem certeza que deseja deletar esta empresa?');"><i class="fas fa-trash-alt"></i></button>

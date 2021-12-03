@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-1">
-                <a class="btn btn-primary btn-success" href="/empresas/{{$empresa->id}}/edit">Editar</a>
+                <a class="btn btn-primary btn-success" href="{{ $app_url }}/empresas/{{$empresa->id}}/edit">Editar</a>
             </div>
         </div>
         <br>

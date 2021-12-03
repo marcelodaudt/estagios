@@ -9,13 +9,13 @@
 <br><br><br><br><br>
 
 <div style="text-align: justify;">
-    <p style="text-indent : 3em;">Os documentos, impressos e assinados, devem ser entregues com pelo menos 10 dias úteis
+    <p style="text-indent : 1em;">Os documentos, impressos e assinados, devem ser entregues com pelo menos 10 dias úteis
         antes do início estágio.</p>
     <br>
-    <p style="text-indent : 3em;">É obrigatória a entrega de um relatório pessoal (digitado, datado, assinado e com no
+    <p style="text-indent : 1em;">É obrigatória a entrega de um relatório pessoal (digitado, datado, assinado e com no
         mínimo 7 linhas) no término desse estágio, relatando sua experiência no período.</p>
     <br>
-    <p style="text-indent : 3em; font-weight: bold">Uma via deste termo de Ciência deve ser entregue com o Termo de
+    <p style="text-indent : 1em; font-weight: bold">Uma via deste termo de Ciência deve ser entregue com o Termo de
         Compromisso e Plano de Estágio.</p>
     <br>
     <p>Ciência d{{ $estagio->artigo_definido }}
@@ -55,8 +55,8 @@
         regime especial, regida por seu Estatuto, aprovado pela Resolução nº 3.461, de 07 de outubro de 1988, e pelo
         Regimento Geral, aprovado
         pela Resolução nº 3.745, de 19 de outubro de 1990, com sede em São Paulo (Capital), inscrita no CNPJ-MF sob nº
-        63.025.530/0001-04, adiante denominada USP, no interesse da Faculdade de Filosofia, Letras e Ciências Humanas,
-        localizada à Rua do Lago, 717, na Cidade Universitária “Armando de Salles Oliveira, Butantã, São Paulo, neste
+        63.025.530/0001-04, adiante denominada USP, no interesse da Escola de Comunicações e Artes,
+        localizada à Rua Prof. Lúcio Martins Rodrigues, 443, na Cidade Universitária “Armando de Salles Oliveira, Butantã, São Paulo, neste
         ato representada pel{{ $estagio->artigo_definido }} Presidente da
         Comissão de Graduação, <b>{{ \App\Models\Parecerista::presidente() }}</b>, da mencionada
         Faculdade, celebram o presente TERMO DE COMPROMISSO DE ESTÁGIO, que se vincula ao convênio para Realização de
@@ -130,7 +130,7 @@
     {{ $estagio->nome }}<br><br><br>
     ________________________________________________<br>
     {{ \App\Models\Parecerista::presidente() }}<br>
-    Presidente da Comissão de Graduação da FFLCH-USP
+    Presidente da Comissão de Graduação da ECA-USP
 </div>
 
 <div><br><br>
@@ -201,7 +201,7 @@
     {{ $estagio->nome }}<br><br>
     _______________________________________________<br>
     {{ \App\Models\Parecerista::presidente() }} <br>
-    Presidente da Comissão de Graduação da FFLCH/USP
+    Presidente da Comissão de Graduação da ECA/USP
 
     <br><br><br>
 

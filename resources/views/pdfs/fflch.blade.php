@@ -46,21 +46,16 @@
 
 <body>
     
-<header>
-    <table style='width:100%'>
-        <tr>
-            <td style='width:20%' style='text-align:left;'>
-                <img src='images/logo-fflch.jpg' width='100px'/>
-            </td>
-            <td style='width:80%'; style='text-align:center;'>
-                <p align='center'><b>FACULDADE DE FILOSOFIA, LETRAS E CIÊNCIAS HUMANAS</b>
-                <br>Universidade de São Paulo<br>
-                Serviço de Assistência ao Ensino de Graduação</p>
-            </td>
-        </tr>
-    </table>
-<hr>
-</header>
+    <header>
+        <table style='width:100%'>
+            <tr>
+                <td style='width:100%' style='text-align:center;'>
+                    <img src='images/banner-eca.jpg' width='700px'/>
+                </td>
+            </tr>
+        </table>
+    <hr>
+    </header>
 
 <footer><div class="footer">
     <hr>

@@ -4,7 +4,7 @@
 @include('flash')
 
 <div class="card">
-  <div class="card-header"><b>Sistema de Estágios FFLCH</b></a></div>
+  <div class="card-header"><b>Sistema de Estágios ECA</b></a></div>
   <div class="card-body">
 
   @auth

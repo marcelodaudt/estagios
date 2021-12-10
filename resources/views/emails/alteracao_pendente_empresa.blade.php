@@ -14,6 +14,6 @@ O seguinte aditivo foi requisitado: <br><br>
 Favor entrar em contato com o setor de estágios da fflch em caso de necessidade ou dúvida, o sistema informará a empresa 
 via email quando da aprovação ou reprovação do aditivo.
 <br><br>
-Mensagem automática, não responder - FFLCH-USP 
+Mensagem automática, não responder - ECA-USP 
 
 

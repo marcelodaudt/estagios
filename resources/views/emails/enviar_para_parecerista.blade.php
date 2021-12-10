@@ -4,12 +4,12 @@ Segue em anexo o parecer de mérito relativo ao estágio de {{ $estagio->nome }}
 Parecer Realizado por: {{ $estagio->parecerista_nome }} <br><br>
 
 
-Acesse o sistema de estágio https://estagios.fflch.usp.br/ com senha única USP e vá na opção
+Acesse o sistema de estágio https://sistemas.eca.usp.br/estagios/ com senha única USP e vá na opção
 "Estágios para Parecer de Mérito".
 
 
 <br><br>
-Mensagem automática - Sistema de Estágios - FFLCH-USP
+Mensagem automática - Sistema de Estágios - ECA-USP
 
 
 

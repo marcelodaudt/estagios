@@ -16,8 +16,8 @@ A alteração pendente é a seguinte: <br><br>
 @endforeach
 
 <br>
-Favor entrar no sistema de estágios da FFLCH para informar sua avaliação relativa ao pedido de aditivo realizado.
+Favor entrar no sistema de estágios da ECA para informar sua avaliação relativa ao pedido de aditivo realizado.
 <br><br>
-Mensagem automática, não responder - FFLCH-USP 
+Mensagem automática, não responder - ECA-USP 
 
 

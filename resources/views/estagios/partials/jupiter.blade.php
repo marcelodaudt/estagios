@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th scope="col">Disciplina</th>
+      <th scope="col">Nome da Disciplina</th>
       <th scope="col">Turma</th>
       <th scope="col">Dia da Semana</th>
       <th scope="col">Horário da Aula</th>
@@ -13,6 +14,7 @@
         @foreach($estagio->grade as $linha)
             <tr>
                 <td>{{ $linha['coddis'] }} </td>
+                <td>{{ $linha['nomdis'] }} </td>
                 <td>{{ $linha['codtur'] }} </td>
                 <td>
                     @switch($linha['diasmnocp'])

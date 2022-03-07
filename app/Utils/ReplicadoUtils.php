@@ -29,9 +29,10 @@ class ReplicadoUtils {
     public static function grade($codpes){
         $current = date("Y") . (date("m") > 6? 2:1);
 
-        $query =  "SELECT h.coddis, h.codtur, o.diasmnocp, p.horent, p.horsai FROM HISTESCOLARGR h 
+        $query =  "SELECT h.coddis, d.nomdis, h.codtur, o.diasmnocp, p.horent, p.horsai FROM HISTESCOLARGR h 
         INNER JOIN OCUPTURMA o ON (h.coddis = o.coddis AND h.codtur = o.codtur)
         INNER JOIN PERIODOHORARIO p ON (o.codperhor = p.codperhor)
+        INNER JOIN DISCIPLINAGR d ON (h.coddis = d.coddis AND dtadtvdis Is NULL)
         where h.codpes = convert(int,:codpes) and h.codtur LIKE '%{$current}%' ORDER BY o.diasmnocp";
         $param = [
             'codpes' => $codpes,

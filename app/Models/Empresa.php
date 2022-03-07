@@ -16,12 +16,6 @@ class Empresa extends Model
         }
     }
 
-    public function setConcederAcessoCnpjAttribute($value) {
-        if($value) {
-            $this->attributes['conceder_acesso_cnpj'] = preg_replace('/[^0-9]/', '', $value);
-        }
-    }
-
     public function getCnpjNumberAttribute($value) {
         return preg_replace( '/[^0-9]/', '', $this->cnpj );
     }
@@ -36,16 +30,6 @@ class Empresa extends Model
                     substr($value, -2);
             return $cnpj;
         }
-    }
-
-    public function empresa_com_acesso()
-    {
-        # deleta relação antes se empresa com acesso foi deletada
-        if(!Empresa::where('cnpj',$this->conceder_acesso_cnpj)->first()){
-            $this->attributes['conceder_acesso_cnpj'] = null;
-            $this->save();
-        }
-        return $this->belongsTo($this,'conceder_acesso_cnpj','cnpj');
     }
      
 }

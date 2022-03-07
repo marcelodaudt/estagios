@@ -126,22 +126,6 @@ class EmpresaController extends Controller
         return redirect('/');
     }
 
-    public function acessar_outra_empresa(Request $request, Empresa $empresa){
-        $this->authorize('empresa',Auth::user()->cnpj);
-        if(isset($request->busca)) {
-            $pontuacoes = ['.','-','/'];
-            $cnpj_limpo = str_replace($pontuacoes,'',$request->busca);
-            $empresas = Empresa::where('nome','LIKE',"%{$request->busca}%")
-                                ->where('conceder_acesso_cnpj',Auth::user()->cnpj)
-                                ->orWhere('cnpj','LIKE',"%{$cnpj_limpo}%")
-                                ->where('conceder_acesso_cnpj',Auth::user()->cnpj)
-                ->paginate(10);
-        } else {
-            $empresas = Empresa::where('conceder_acesso_cnpj',Auth::user()->cnpj)->paginate(10);
-        }  
-        return view('empresas.index', compact('empresas'));
-    }
-
     public function destroy(Request $request, Empresa $empresa){
         $this->authorize('admin');
         $request->session()->flash('alert-danger','Recurso desativado');

@@ -135,12 +135,6 @@ return [
         ],
 
         [
-            'text'    => 'Acessar outra Empresa',
-            'url'     => config('app.url') . '/acessar_outra_empresa',
-            'can'     => 'empresa',
-        ],
-
-        [
             'text'    => 'Acessar Pareceres',
             'submenu' => $menudoparecerista,
             'can'     => 'parecerista',

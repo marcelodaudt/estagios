@@ -58,31 +58,6 @@
         <hr>
 
         <div class="row">
-          <div class="col-sm form-group">
-            <b>Conceder acesso de administração:</b> 
-            <br>
-            <select name="conceder_acesso_cnpj">
-            <option value="" selected=""> - Selecione  -</option>
-                @foreach ($empresa->all()->sortBy('nome', SORT_NATURAL|SORT_FLAG_CASE) as $empresa_lista)
-
-                @if (old('conceder_acesso_cnpj') == '' and isset($empresa->conceder_acesso_cnpj))
-                    <option value="{{$empresa_lista->cnpj_number}}" {{ ( $empresa->conceder_acesso_cnpj == $empresa_lista->cnpj_number) ? 'selected' : ''}}>
-                        {{$empresa_lista->cnpj}} - {{$empresa_lista->nome}}
-                    </option>
-                @else
-                    <option value="{{$empresa_lista->cnpj_number}}" {{ ( old('conceder_acesso_cnpj') == $empresa_lista->cnpj_number) ? 'selected' : ''}}>
-                        {{$empresa_lista->cnpj}} - {{$empresa_lista->nome}}
-                    </option>
-                @endif
-                
-                @endforeach
-            </select>
-          </div>
-        </div>
-
-
-
-        <div class="row">
             <div class="col-sm form-group">
                 <button type="submit" class="btn btn-success">Enviar</button>    
             </div>

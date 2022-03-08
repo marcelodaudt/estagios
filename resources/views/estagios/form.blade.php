@@ -70,7 +70,7 @@ aditivo por até 12 meses.
         <div class="form-group">
         <label for="atividades">Descrição detalhada das atividades a serem desenvolvidas pelo 
         estagiário para que o parecerista analise e constate a relação destas com a formação 
-        acadêmica do aluno (Não é necessário preencher em caso de estágio inferior a 6 meses): </label>
+        acadêmica do aluno: </label>
             <textarea name="atividades" rows="5" cols="60">{{old('atividades',$estagio->atividades)}}</textarea>
         </div>
 

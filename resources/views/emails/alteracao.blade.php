@@ -1,6 +1,6 @@
 
 Aviso de que foi realizado um aditivo de alteração no estágio de {{ $estagio->nome }}, Nº USP {{ $estagio->numero_usp }}, 
-na empresa {{ $estagio->empresa->nome }}. O setor de estágios julgou que a alteração realizada necessita de aprovação
+na empresa {{ $estagio->empresa->nome }}. A Seção de Estágios julgou que a alteração realizada necessita de aprovação
 do parecerista.
 <br><br>
 A alteração pendente é a seguinte: <br><br>
@@ -16,8 +16,8 @@ A alteração pendente é a seguinte: <br><br>
 @endforeach
 
 <br>
-Favor entrar no sistema de estágios da ECA para informar sua avaliação relativa ao pedido de aditivo realizado.
+Favor entrar no Sistema de Estágios da ECA para informar sua avaliação relativa ao pedido de aditivo realizado.
 <br><br>
-Mensagem automática, não responder - ECA-USP 
+Mensagem automática, não responder - Sistema de Estágios - ECA-USP
 
 

@@ -11,8 +11,8 @@ O documento contendo os aditivos aprovados segue em anexo, as alteração realiz
 </b>
 
 <br>
-Favor entrar em contato com o setor de estágios da fflch em caso de necessidade ou dúvida.
+Favor entrar em contato com a Seção de Estágios da ECA em caso de necessidade ou dúvida.
 <br><br>
-Mensagem automática, não responder - FFLCH-USP 
+Mensagem automática, não responder - Sistema de Estágios - ECA-USP
 
 

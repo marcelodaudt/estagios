@@ -11,9 +11,9 @@ O seguinte aditivo foi requisitado: <br><br>
 @endforeach
 
 <br>
-Favor entrar em contato com o setor de estágios da fflch em caso de necessidade ou dúvida, o sistema informará a empresa 
+Favor entrar em contato com a Seção de Estágios da ECA em caso de necessidade ou dúvida, o sistema informará a empresa 
 via email quando da aprovação ou reprovação do aditivo.
 <br><br>
-Mensagem automática, não responder - ECA-USP 
+Mensagem automática, não responder - Sistema de Estágios - ECA-USP
 
 

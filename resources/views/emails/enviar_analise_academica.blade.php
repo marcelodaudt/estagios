@@ -2,7 +2,7 @@
 
 Informamos que o docente parecerista, {{ $estagio->parecerista_nome }}, 
 enviou a avaliação de parecer de mérito relativa a seu estágio 
-na empresa {{ $estagio->empresa->nome }} para o setor de estágios.<br><br>
+na empresa {{ $estagio->empresa->nome }} para a Seção de Estágios.<br><br>
 
 Com base na análise do parecerista, informamos que o estágio foi <b>{{ $estagio->tipodeferimento }}</b>,
 segue o documento do parecer em anexo.<br><br>
@@ -18,7 +18,7 @@ Nenhuma medida adicional precisa ser tomada neste momento quanto ao estágio. Em
 @endif    
 
 <br><br>
-Mensagem automática - Sistema de Estágios - ECA-USP
+Mensagem automática, não responder - Sistema de Estágios - ECA-USP
 
 
 

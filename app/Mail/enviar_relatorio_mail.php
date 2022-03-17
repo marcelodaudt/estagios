@@ -40,7 +40,7 @@ class enviar_relatorio_mail extends Mailable
             array_push($to,$this->estagio->parecerista->email);
         }
               
-        $subject = $this->estagio->nome. ' - Foi enviado um novo relatório no estágio - FFLCH-USP';
+        $subject = $this->estagio->nome. ' - Foi enviado um novo relatório no estágio - ECA-USP';
 
         return $this->view('emails.novo_relatorio')
             ->to($to)

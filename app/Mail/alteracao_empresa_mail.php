@@ -37,7 +37,7 @@ class alteracao_empresa_mail extends Mailable
 
         $to = [$this->estagio->email_de_contato,config('mail.reply_to.address')];
         
-        $subject = $this->estagio->nome . ' - Setor de Estágios FFLCH-USP - Versão atualizada do parecer de alteração deste estágio'; 
+        $subject = $this->estagio->nome . ' - Seção de Estágios ECA-USP - Versão atualizada do parecer de alteração deste estágio'; 
 
         $pdf = PDF::loadView('pdfs.aditivo', [
             'estagio'=>$this->estagio, 

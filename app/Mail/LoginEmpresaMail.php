@@ -32,7 +32,7 @@ class LoginEmpresaMail extends Mailable
      */
     public function build()
     {
-        $subject = 'Dados para login no sistema de estágio FFLCH';
+        $subject = 'Dados para login no Sistema de Estágios da ECA';
 
         return $this->view('emails.login_empresa')
                     ->to($this->destino)

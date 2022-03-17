@@ -33,7 +33,7 @@ class enviar_analise_academica_mail extends Mailable
     {
         $to = [$this->estagio->email,config('mail.reply_to.address')];
               
-        $subject = $this->estagio->nome . ' - RESULTADO DO PARECER DE MÉRITO - Setor de Estágios - FFLCH-USP';
+        $subject = $this->estagio->nome . ' - RESULTADO DO PARECER DE MÉRITO - Seção de Estágios - ECA-USP';
 
         $pdf = PDF::loadView('pdfs.parecer', ['estagio'=>$this->estagio]);
 

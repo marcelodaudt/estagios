@@ -36,7 +36,7 @@ class enviar_para_parecerista_mail extends Mailable
 
         $to = [$this->estagio->parecerista->email,config('mail.reply_to.address')];
               
-        $subject = $this->estagio->nome. ' - Parecer de Mérito - FFLCH-USP';
+        $subject = $this->estagio->nome. ' - Parecer de Mérito - ECA-USP';
 
         $pdf = PDF::loadView('pdfs.parecer', ['estagio'=>$this->estagio]);      
 

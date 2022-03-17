@@ -38,7 +38,7 @@ class alteracao_mail extends Mailable
                config('mail.reply_to.address')
               ];
 
-        $subject = $this->estagio->nome . ' - Setor de Estágios - Existe uma alteração pendente neste estágio que necessita de avaliação';           
+        $subject = $this->estagio->nome . ' - Seção de Estágios - Existe uma alteração pendente neste estágio que necessita de avaliação';           
 
         return $this->view('emails.alteracao')
                     ->to($to)

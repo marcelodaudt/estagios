@@ -35,7 +35,7 @@ class rescisao_empresa_mail extends Mailable
 
         $to = [$this->estagio->email_de_contato,config('mail.reply_to.address')];
 
-        $subject = $this->estagio->nome . ' - Setor de Estágios - Foi realizada a rescisão deste estágio com sucesso';         
+        $subject = $this->estagio->nome . ' - Seção de Estágios - Foi realizada a rescisão deste estágio com sucesso';         
 
         return $this->view('emails.rescisao_empresa')
                     ->to($to)

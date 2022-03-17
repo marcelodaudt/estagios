@@ -37,7 +37,7 @@ class alteracao_pendente_empresa_mail extends Mailable
 
         $to = [$this->estagio->email_de_contato,config('mail.reply_to.address')];
         
-        $subject = $this->estagio->nome . ' - Setor de Estágios FFLCH-USP - Um novo aditivo foi requisitado'; 
+        $subject = $this->estagio->nome . ' - Seção de Estágios ECA-USP - Um novo aditivo foi requisitado'; 
 
         $pdf = PDF::loadView('pdfs.aditivo', [
             'estagio'=>$this->estagio, 

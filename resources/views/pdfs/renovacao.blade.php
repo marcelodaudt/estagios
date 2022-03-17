@@ -82,7 +82,7 @@
         <b> {{ $estagio->nome }} </b></p>
     <p>________________________________________<br>
         <b>{{ \App\Models\Parecerista::presidente() }}</b><br>
-        <b>Presidente da Comissão de Graduação da FFLCH</b></p>
+        <b>Presidente da CG – ECA/USP</b></p>
 </div>
 
 <br><br>
@@ -159,7 +159,7 @@
     <b>{{ $estagio->nome }}</b><br><br>
     _______________________________________________<br>
     <b>{{ \App\Models\Parecerista::presidente() }}</b><br>
-    <b>Presidente da Comissão de Graduação da ECA/USP</b><br>
+    <b>Presidente da CG – ECA/USP</b><br>
 </div>
 <div>
 

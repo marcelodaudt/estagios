@@ -130,7 +130,7 @@
     {{ $estagio->nome }}<br><br><br>
     ________________________________________________<br>
     {{ \App\Models\Parecerista::presidente() }}<br>
-    Presidente da Comissão de Graduação da ECA-USP
+    Presidente da CG – ECA/USP
 </div>
 
 <div><br><br>
@@ -201,7 +201,7 @@
     {{ $estagio->nome }}<br><br>
     _______________________________________________<br>
     {{ \App\Models\Parecerista::presidente() }} <br>
-    Presidente da Comissão de Graduação da ECA/USP
+    Presidente da CG – ECA/USP
 
     <br><br><br>
 

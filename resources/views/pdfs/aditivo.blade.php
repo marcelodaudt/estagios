@@ -60,7 +60,7 @@ ________________________________________<br>
 <br>
 ________________________________________<br>
 <b>{{ \App\Models\Parecerista::presidente() }}</b><br>
-<b>Presidente da Comissão de Graduação da FFLCH</b>
+<b>Presidente da CG – ECA/USP</b>
 <br><br><br>
 E-mail do estagiario: {{ $estagio->email }}<br>
 Contato: {{$estagio->nome_de_contato}}, tel.: {{$estagio->telefone_de_contato}}, e-mail: {{$estagio->email_de_contato}}
@@ -73,7 +73,7 @@ Contato: {{$estagio->nome_de_contato}}, tel.: {{$estagio->telefone_de_contato}},
 
 @section('footer')
 <div style="text-align: initial; font-weight: bold;">O PRAZO PARA DEVOLUÇÃO DO DOCUMENTO É DE 15 DIAS ÚTEIS.
-AO FINAL DE CADA SEMESTRE O ESTAGIÁRIO DEVE APRESENTAR O RELATÓRIO DE
+AO FINAL DE CADA SEMESTRE O ESTAGIÁRIO(A) DEVE APRESENTAR O RELATÓRIO DE
 ESTÁGIO, NOS TERMOS DA LEI 11.788, DA RESOLUÇÃO USP N. 5528.</b>
 </div>
 @endsection

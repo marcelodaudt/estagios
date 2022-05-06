@@ -40,7 +40,7 @@
         CONCEDENTE e o ESTAGIÁRIO(A) <b>{{ $estagio->nome }}</b>, no USP <b>{{ $estagio->numero_usp }}</b>, 
         curso {{ $estagio->curso }} e como
         INTERVENIENTE a Escola de Comunicações e Artes da Universidade de São Paulo, representada
-        pela Presidente da Comissão de Graduação <b> {{ \App\Models\Parecerista::presidente() }} </b>, firmam o presente TERMO DE
+        pela Presidente da Comissão de Graduação <b> {{ \App\Models\Parecerista::nomePresidente() }} </b>, firmam o presente TERMO DE
         ADITAMENTO DE COMPROMISSO DE ESTÁGIO, nos termos da Lei 11.788/08 e da Resolução USP no 5.528/09, conforme as
         condições a seguir:
     </p>
@@ -81,7 +81,7 @@
     <p>________________________________________<br>
         <b> {{ $estagio->nome }} </b></p>
     <p>________________________________________<br>
-        <b>{{ \App\Models\Parecerista::presidente() }}</b><br>
+        <b>{{ \App\Models\Parecerista::nomePresidente() }}</b><br>
         <b>Presidente da CG – ECA/USP</b></p>
 </div>
 

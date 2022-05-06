@@ -52,7 +52,7 @@ ________________________________________<br>
 <br>
 <br>
 ________________________________________<br>
-<b>{{ \App\Models\Parecerista::presidente() }}<br>
+<b>{{ \App\Models\Parecerista::nomePresidente() }}<br>
 Presidente da CG – ECA/USP</b>
 
 

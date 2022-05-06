@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PareceristaRequest extends FormRequest
 {
@@ -26,6 +27,10 @@ class PareceristaRequest extends FormRequest
         return [
             'numero_usp' => 'required|integer|codpes',
             'presidente' => 'integer'
+            'presidente' => [
+                'integer',
+                Rule::in([1])
+            ]
         ];
     }
 }

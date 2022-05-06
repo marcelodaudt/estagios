@@ -182,7 +182,8 @@ class Estagio extends Model implements Auditable
         }else{
             $curso = Graduacao::curso($this->numero_usp,8);
             if($curso) {
-                return $curso;
+                //return $curso;
+                return $curso['nomcur'];
             }else{
                 return 'Sem infomação disponível';
             }

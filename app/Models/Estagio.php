@@ -48,6 +48,14 @@ class Estagio extends Model implements Auditable
         ];
     }
 
+    public function tipoestagioOptions(){
+        return [
+            'Obrigatório Remunerado',
+            'Obrigatório Não-remunerado',
+            'Não-obrigatório Remunerado'
+        ];
+    }
+
     public function atividadespertinentesOptions(){
         return [
             'Sim',

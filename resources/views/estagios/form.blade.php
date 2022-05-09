@@ -18,22 +18,39 @@ aditivo por até 12 meses.
     <div class="card-body">
 
         <div class="row">
-                    <div class="col-sm form-group">
+            
+            <div class="col-sm form-group">
+                
                 <div class="form-group">
                     <label for="numero_usp" class="required">Número USP: </label>
                     <input type="number" class="form-control" id="numero_usp" name="numero_usp" value="{{old('numero_usp',$estagio->numero_usp)}}">
                     <div id="info"></div>
                 </div>
 
-                </div>
-                <div class="col-sm form-group">
+            </div>
+
+            <div class="col-sm form-group">
 
                 <div class="form-group">
-                    <label for="valorbolsa" class="required">Valor da Bolsa (R$): </label>
-                    <input type="text" class="form-control" id="valorbolsa" name="valorbolsa" value="{{old('valorbolsa',$estagio->valorbolsa)}}">
+                    <label for="tipoestagio" class="required">Especifique a modalidade do estágio: </label>
+                    <select name="tipoestagio" class="form-control" id="tipoestagio">
+                        <option value="" selected="">- Selecione -</option>
+                            @foreach ($estagio->tipoestagioOptions() as $option)
+                                @if (old('tipoestagio') == '' and isset($estagio->tipoestagio) )
+                                    <option value="{{$option}}" {{ ( $estagio->tipoestagio == $option) ? 'selected' : ''}}>
+                                        {{$option}}
+                                    </option>
+                                @else
+                                    <option value="{{$option}}" {{ ( old('tipoestagio') == $option) ? 'selected' : ''}}>
+                                        {{$option}}
+                                    </option>
+                                @endif
+                            @endforeach
+                    </select>
                 </div>
-
-                </div>
+            
+            </div>
+        
         </div>
 
         <div class="form-group">
@@ -41,25 +58,41 @@ aditivo por até 12 meses.
             <input type="text" class="form-control" name="horariocompativel" value="{{old('horariocompativel',$estagio->horariocompativel)}}">
         </div>
 
+        <div class="row">
+            
+            <div class="col-sm form-group">
+            
+                <div class="form-group">
+                    <label for="valorbolsa" class="required">Valor da Bolsa (R$): </label>
+                    <input type="text" class="form-control" id="valorbolsa" name="valorbolsa" value="{{old('valorbolsa',$estagio->valorbolsa)}}">
+                </div>
 
-        <div class="form-group">
-            <label for="tipobolsa" class="required">Especifique a natureza do pagamento da bolsa: </label>
-            <select name="tipobolsa" class="form-control" id="tipobolsa">
-               <option value="" selected="">- Selecione -</option>
-                    @foreach ($estagio->tipobolsaOptions() as $option)
-                        @if (old('tipobolsa') == '' and isset($estagio->tipobolsa) )
-                            <option value="{{$option}}" {{ ( $estagio->tipobolsa == $option) ? 'selected' : ''}}>
-                                {{$option}}
-                            </option>
-                        @else
-                            <option value="{{$option}}" {{ ( old('tipobolsa') == $option) ? 'selected' : ''}}>
-                                {{$option}}
-                            </option>
-                        @endif
-                          
-                    @endforeach    
+            </div>
 
-            </select> 
+            <div class="col-sm form-group">
+
+                <div class="form-group">
+                    <label for="tipobolsa" class="required">Especifique a natureza do pagamento da bolsa: </label>
+                    <select name="tipobolsa" class="form-control" id="tipobolsa">
+                    <option value="" selected="">- Selecione -</option>
+                            @foreach ($estagio->tipobolsaOptions() as $option)
+                                @if (old('tipobolsa') == '' and isset($estagio->tipobolsa) )
+                                    <option value="{{$option}}" {{ ( $estagio->tipobolsa == $option) ? 'selected' : ''}}>
+                                        {{$option}}
+                                    </option>
+                                @else
+                                    <option value="{{$option}}" {{ ( old('tipobolsa') == $option) ? 'selected' : ''}}>
+                                        {{$option}}
+                                    </option>
+                                @endif
+                                
+                            @endforeach    
+
+                    </select> 
+                </div>
+            
+            </div>
+        
         </div>
 
         <div class="form-group">

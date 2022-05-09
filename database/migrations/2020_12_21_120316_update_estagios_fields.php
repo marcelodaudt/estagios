@@ -26,7 +26,7 @@ class UpdateEstagiosFields extends Migration
     public function down()
     {
         Schema::table('estagios', function (Blueprint $table) {
-            $table->string('avaliacao_empresa');
+            $table->dropColumn('avaliacao_empresa');
         });
     }
 }

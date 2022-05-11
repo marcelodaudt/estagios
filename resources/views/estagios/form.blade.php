@@ -63,7 +63,7 @@ aditivo por até 12 meses.
             <div class="col-sm form-group">
             
                 <div class="form-group">
-                    <label for="valorbolsa" class="required">Valor da Bolsa (R$): </label>
+                    <label for="valorbolsa">Valor da Bolsa (R$): </label>
                     <input type="text" class="form-control" id="valorbolsa" name="valorbolsa" value="{{old('valorbolsa',$estagio->valorbolsa)}}">
                 </div>
 
@@ -72,7 +72,7 @@ aditivo por até 12 meses.
             <div class="col-sm form-group">
 
                 <div class="form-group">
-                    <label for="tipobolsa" class="required">Especifique a natureza do pagamento da bolsa: </label>
+                    <label for="tipobolsa">Especifique a natureza do pagamento da bolsa: </label>
                     <select name="tipobolsa" class="form-control" id="tipobolsa">
                     <option value="" selected="">- Selecione -</option>
                             @foreach ($estagio->tipobolsaOptions() as $option)
@@ -254,12 +254,12 @@ aditivo por até 12 meses.
         <div class="row">
             <div class="col-sm form-group">
                 <div class="form-group">
-                <label for="seguradora" class="required">Nome da seguradora: </label>
+                <label for="seguradora">Nome da seguradora: </label>
                     <input type="text" class="form-control" id="seguradora" name="seguradora" value="{{old('seguradora',$estagio->seguradora)}}">
                 </div></div>
             <div class="col-sm form-group">
                 <div class="form-group">
-                <label for="numseguro" class="required">Número da apólice de seguro: </label>
+                <label for="numseguro">Número da apólice de seguro: </label>
                     <input type="text" class="form-control" id="numseguro" name="numseguro" value="{{old('numseguro',$estagio->numseguro)}}">
                 </div></div>
             </div>

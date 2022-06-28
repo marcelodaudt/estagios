@@ -26,7 +26,6 @@ class PareceristaRequest extends FormRequest
     {
         return [
             'numero_usp' => 'required|integer|codpes',
-            'presidente' => 'integer'
             'presidente' => [
                 'integer',
                 Rule::in([1])

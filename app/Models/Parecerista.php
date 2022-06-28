@@ -22,7 +22,7 @@ class Parecerista extends Model
         }
     }
 
-    public static function presidente() {
+    public static function nomePresidente() {
         $presidente = Parecerista::where('presidente', true)->first();
         if($presidente){
             return Pessoa::nomeCompleto($presidente->numero_usp);
@@ -32,6 +32,7 @@ class Parecerista extends Model
     }
 
     public function getEmailAttribute() {
+
         if($this->numero_usp){
             return Pessoa::email($this->numero_usp);
         }

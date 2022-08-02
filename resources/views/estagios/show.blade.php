@@ -58,7 +58,7 @@
         <div class="card-body">
             <b>Número USP:</b> {{$estagio->numero_usp}}<br>
             <b>Nome do(a) aluno(a):</b> {{ $estagio->nome }}<br>
-            <b>Curso:</b> {{ $estagio->nomhab }}<br>
+            <b>Curso:</b> {{ $estagio->curso }}<br>
             <b>Média ponderada:</b> {{ $estagio->media_ponderada }}<br>
             <b>Periodo de Matrícula</b>: {{ $estagio->periodo }}<br>
             <b>Periodo de Matrícula</b>: {{ $estagio->tipoestagio }}<br>

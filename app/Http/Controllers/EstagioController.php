@@ -90,7 +90,7 @@ class EstagioController extends Controller
         $validated = $request->validated();
         $validated['status'] = 'em_elaboracao';           
         $estagio = Estagio::create($validated);
-        $curso = Graduacao::curso($estagio->numero_usp, 8);
+        $curso = Graduacao::curso($estagio->numero_usp, 27);
         if($curso) {
             $estagio->nomcur =  $curso['nomcur'];
             $estagio->nomhab =  $curso['nomhab'];

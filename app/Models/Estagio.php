@@ -188,7 +188,7 @@ class Estagio extends Model implements Auditable
         if($this->nomcur){
             return $this->nomcur;
         }else{
-            $curso = Graduacao::curso($this->numero_usp,8);
+            $curso = Graduacao::curso($this->numero_usp, 27);
             if($curso) {
                 //return $curso;
                 return $curso['nomcur'];
@@ -226,7 +226,7 @@ class Estagio extends Model implements Auditable
 
     public function getHabilitacaoAttribute() {
         if($this->numero_usp) {
-            $curso = Graduacao::curso($this->numero_usp,8);
+            $curso = Graduacao::curso($this->numero_usp, 27);
             if($curso) {
                 return Graduacao::nomeHabilitacao($curso['codhab'], $curso['codcur']);
             }else{

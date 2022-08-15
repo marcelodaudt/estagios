@@ -33,6 +33,7 @@ class assinatura_mail extends Mailable
     public function build()
     {
         $to = [$this->estagio->email_de_contato,config('mail.reply_to.address')];
+        
         $subject = $this->estagio->nome. ' - Estágio Aguardando Assinaturas - ECA-USP';         
 
         return $this->view('emails.assinatura')

@@ -22,8 +22,6 @@ function checagemmmedidas(that) {
           alert("Caso o estágio não esteja sendo realizado em home office, é obrigatório preencher as medidas sanitárias adotadas pela empresa.");
           return false;
         }
-
-
     }
 }
 
@@ -47,6 +45,5 @@ function checagemdeferimento(that) {
     else
     {
         document.getElementById("deferimentoparcial").style.display = "block";
-
     }
 }

@@ -35,7 +35,8 @@
 <p style="page-break-after: always;"></p>
 
 <div style="border-width: 1px; border-style: solid; border-color: #000; text-align: center; padding: 0px;">
-    <b>TERMO DE COMPROMISSO</b>
+    <b>TERMO DE COMPROMISSO</b><br>
+    <b>{{ $estagio->tipoestagio }}</b>
 </div>
 
 <div style="text-align: justify;">
@@ -144,7 +145,8 @@
 <p style="page-break-after: always;"></p>
 
 <div style="border-width: 1px; border-style: solid; border-color: #000; text-align: center; padding: 0px;">
-    <b>PLANO DE ESTÁGIO</b>
+    <b>PLANO DE ESTÁGIO</b><br>
+    <b>Modalidade: {{ $estagio->tipoestagio }}</b><br>
 </div>
 
 <br>

@@ -30,7 +30,7 @@ class EmpresaController extends Controller
     public function show(Request $request, Empresa $empresa){
         $this->authorize('logado');
         if (Gate::allows('empresa', $empresa->cnpj_number) | Gate::allows('admin')) {
-            $estagios = Estagio::where('cnpj',$empresa->cnpj)->paginate(10);
+            $estagios = Estagio::where('cnpj',$empresa->cnpj_number)->paginate(10);
             return view('empresas.show')->with([
                 'empresa'  => $empresa,
                 'estagios' => $estagios,

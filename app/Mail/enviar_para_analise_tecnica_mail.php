@@ -34,8 +34,10 @@ class enviar_para_analise_tecnica_mail extends Mailable
     {
         $to = [$this->estagio->email_de_contato,config('mail.reply_to.address')];
         
-        $subject = $this->estagio->nome . ' - Documentos Relatívos a Estágio - ECA-USP';      
+        $subject = $this->estagio->nome . ' - Documentos Relatívos a Estágio - ECA-USP';
+
         $pdf = PDF::loadView('pdfs.termo', ['estagio'=>$this->estagio]);
+        
         return $this->view('emails.enviar_para_analise_tecnica')
                     ->to($to)
                     ->subject($subject)

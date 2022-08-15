@@ -105,7 +105,8 @@
 
 <div
     style="border-width: 1px; border-style: solid; border-color: #000; text-align: center; padding: 0px; font-weight: bold">
-    PLANO DE ESTÁGIO
+    <b>PLANO DE ESTÁGIO</b><br>
+    <b>Modalidade: {{ $estagio->tipoestagio }}</b><br>
 </div>
 
 <br>

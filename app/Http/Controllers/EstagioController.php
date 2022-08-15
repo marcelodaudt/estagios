@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\Gate;
 use App\Utils\ReplicadoUtils;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class EstagioController extends Controller
 {
@@ -88,15 +89,37 @@ class EstagioController extends Controller
     {
         $this->authorize('empresa');
         $validated = $request->validated();
-        $validated['status'] = 'em_elaboracao';           
-        $estagio = Estagio::create($validated);
-        $curso = Graduacao::curso($estagio->numero_usp, 27);
-        if($curso) {
-            $estagio->nomcur =  $curso['nomcur'];
-            $estagio->nomhab =  $curso['nomhab'];
+        // Verificação das 30 horas semanais
+        if($request->cargahoras > 30){
+            request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 30 horas!');
+            return redirect("estagios/create")->withInput();
+        } else {
+            // Verificação se existe outro estágio para o mesmo aluno e mesma empresa
+            $verificador = DB::table('estagios')
+                    ->where('numero_usp', '=', $request->input('numero_usp'))
+                    ->where('cnpj', '=', $request->input('cnpj'))
+                    ->where(function($query) {
+                        $query->where('status', '=', 'em_analise_tecnica')
+                            ->orWhere('status', '=', 'em_analise_academica')
+                            ->orWhere('status', '=', 'em_alteracao')
+                            ->orWhere('status', '=', 'assinatura')
+                            ->orWhere('status', '=', 'concluido');
+                    });                   
+            if(!empty($verificador)){
+                request()->session()->flash('alert-danger', 'Já existe um estágio ativo ou em processo de ativação para esse aluno!');
+                return redirect("estagios/create")->withInput();
+            } else {
+                $validated['status'] = 'em_elaboracao';
+                $estagio = Estagio::create($validated);
+                $curso = Graduacao::curso($estagio->numero_usp, 27);
+                if($curso) {
+                    $estagio->nomcur =  $curso['nomcur'];
+                    $estagio->nomhab =  $curso['nomhab'];
+                }
+                $estagio->save();
+                return redirect("estagios/{$estagio->id}");
+            }
         }
-        $estagio->save();
-        return redirect("estagios/{$estagio->id}");
     }
 
     public function destroy(Estagio $estagio, Aditivo $aditivo, File $file){

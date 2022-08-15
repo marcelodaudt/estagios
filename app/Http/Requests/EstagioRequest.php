@@ -25,8 +25,9 @@ class EstagioRequest extends FormRequest
     {
         $rules = [
             'numero_usp' => 'required|numeric|codpes|graduacao',
-            //'valorbolsa' => 'required|max:255',
-            //'tipobolsa' => 'required|max:255',
+            'tipoestagio' => 'required|max:255',
+            'valorbolsa' => 'required_if:tipoestagio,==,Obrigatório Remunerado,Não-obrigatório Remunerado',
+            'tipobolsa' => 'required_if:tipoestagio,==,Obrigatório Remunerado,Não-obrigatório Remunerado',
             'data_inicial' => 'required|data',
             'data_final' => 'required|data',
             'cargahoras' => 'required|max:255',
@@ -34,9 +35,8 @@ class EstagioRequest extends FormRequest
             'horario' => 'required',
             'auxiliotransporte' => 'required|max:255',
             'especifiquevt' => 'required|max:255',
-            //'seguradora' => 'required|max:255',
-            //'numseguro' => 'required|max:255',
-            'tipoestagio' => 'required|max:255',
+            'seguradora' => 'required|max:255',
+            'numseguro' => 'required|max:255',
 
             //campos opcionais
             'controlehorario' => 'nullable',
@@ -45,10 +45,6 @@ class EstagioRequest extends FormRequest
             'enderecoedias' => 'nullable',
             'justificativa' => 'nullable',
             'atividades' => 'nullable',
-            'valorbolsa' => 'nullable',
-            'tipobolsa' => 'nullable',
-            'seguradora' => 'nullable',
-            'numseguro' => 'nullable',
 
             //pandemia
             'pandemiahomeoffice' => 'required|max:255',

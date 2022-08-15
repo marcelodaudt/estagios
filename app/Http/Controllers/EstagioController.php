@@ -96,19 +96,17 @@ class EstagioController extends Controller
         } else {
             // Verificação se existe outro estágio para o mesmo aluno e mesma empresa
             $verificador = DB::table('estagios')
+                    ->select('numero_usp')
                     ->where('numero_usp', '=', $request->input('numero_usp'))
                     ->where('cnpj', '=', $request->input('cnpj'))
                     ->where(function($query) {
-                        $query->where('status', '=', 'em_analise_tecnica')
-                            ->orWhere('status', '=', 'em_analise_academica')
-                            ->orWhere('status', '=', 'em_alteracao')
-                            ->orWhere('status', '=', 'assinatura')
-                            ->orWhere('status', '=', 'concluido');
-                    });                   
-            if(!empty($verificador)){
-                request()->session()->flash('alert-danger', 'Já existe um estágio ativo ou em processo de ativação para esse aluno!');
-                return redirect("estagios/create")->withInput();
-            } else {
+                        $query->orwhere('status', 'em_analise_tecnica')
+                            ->orWhere('status', 'em_analise_academica')
+                            ->orWhere('status', 'em_alteracao')
+                            ->orWhere('status', 'assinatura')
+                            ->orWhere('status', 'concluido');
+                    })->get();
+            if($verificador->isEmpty()){
                 $validated['status'] = 'em_elaboracao';
                 $estagio = Estagio::create($validated);
                 $curso = Graduacao::curso($estagio->numero_usp, 27);
@@ -118,6 +116,9 @@ class EstagioController extends Controller
                 }
                 $estagio->save();
                 return redirect("estagios/{$estagio->id}");
+            } else {
+                request()->session()->flash('alert-danger', 'Já existe um estágio ativo ou em processo de ativação para esse aluno!');
+                return redirect("estagios/create")->withInput();
             }
         }
     }

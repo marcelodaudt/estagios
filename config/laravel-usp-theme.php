@@ -94,7 +94,7 @@ $right_menu = [
 
 
 return [
-    'title' => '',
+    'title' => config('app.name'),
     #'dashboard_url' => '/estagios',
     'skin' => env('USP_THEME_SKIN', 'uspdev'),
     'app_url' => config('app.url'),

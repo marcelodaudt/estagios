@@ -89,23 +89,29 @@ class EstagioController extends Controller
     {
         $this->authorize('empresa');
         $validated = $request->validated();
+        // Verificação de estágios do CCA - 40 horas semanais
+        if($request->departamento == 'CCA - Educomunicação'){
+            if($request->cargahoras > 40){
+                request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 40 horas!');
+                return redirect("estagios/create")->withInput();
+            }
         // Verificação das 30 horas semanais
-        if($request->cargahoras > 30){
-            request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 30 horas!');
-            return redirect("estagios/create")->withInput();
+        } elseif($request->cargahoras > 30){
+                request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 30 horas!');
+                return redirect("estagios/create")->withInput();
         } else {
             // Verificação se existe outro estágio para o mesmo aluno e mesma empresa
             $verificador = DB::table('estagios')
-                    ->select('numero_usp')
-                    ->where('numero_usp', '=', $request->input('numero_usp'))
-                    ->where('cnpj', '=', $request->input('cnpj'))
-                    ->where(function($query) {
-                        $query->orwhere('status', 'em_analise_tecnica')
-                            ->orWhere('status', 'em_analise_academica')
-                            ->orWhere('status', 'em_alteracao')
-                            ->orWhere('status', 'assinatura')
-                            ->orWhere('status', 'concluido');
-                    })->get();
+                        ->select('numero_usp')
+                        ->where('numero_usp', '=', $request->input('numero_usp'))
+                        ->where('cnpj', '=', $request->input('cnpj'))
+                        ->where(function($query) {
+                            $query->orwhere('status', 'em_analise_tecnica')
+                                ->orWhere('status', 'em_analise_academica')
+                                ->orWhere('status', 'em_alteracao')
+                                ->orWhere('status', 'assinatura')
+                                ->orWhere('status', 'concluido');
+                        })->get();
             if($verificador->isEmpty()){
                 $validated['status'] = 'em_elaboracao';
                 $estagio = Estagio::create($validated);

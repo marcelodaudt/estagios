@@ -56,6 +56,22 @@ class Estagio extends Model implements Auditable
         ];
     }
 
+    public function departamentoOptions(){
+        return [
+            'CAC - Artes Cênicas',
+            'CAP - Artes Plásticas',
+            'CBD - Biblioteconomia e Documentação',
+            'CJE - Jornalismo',
+            'CMU - Música',
+            'CRP - Turismo',
+            'CRP - Relações Públicas',
+            'CRP - Publicidade e Propaganda',
+            'CCA - Educomunicação',
+            'CTR - Audiovisual',
+            'CJE - Editoração'
+        ];
+    }
+
     public function atividadespertinentesOptions(){
         return [
             'Sim',

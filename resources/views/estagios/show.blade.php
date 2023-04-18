@@ -62,6 +62,7 @@
             <b>Média ponderada:</b> {{ $estagio->media_ponderada }}<br>
             <b>Periodo de Matrícula</b>: {{ $estagio->periodo }}<br>
             <b>Modalidade do Estágio</b>: {{ $estagio->tipoestagio }}<br>
+            <b>Departamento</b>: {{ $estagio->departamento }}<br>
             <b>Valor da bolsa:</b> {{$estagio->valorbolsa}}<br>
             <b>Tipo de bolsa:</b> {{$estagio->tipobolsa}}<br>
             <b>Justificativa:</b> {{$estagio->justificativa}}<br>

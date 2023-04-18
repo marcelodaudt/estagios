@@ -53,9 +53,40 @@ aditivo por até 12 meses.
         
         </div>
 
-        <div class="form-group">
-            <label for="horariocompativel" class="required">O horário é compatível com o curso? </label>
-            <input type="text" class="form-control" name="horariocompativel" value="{{old('horariocompativel',$estagio->horariocompativel)}}">
+        <div class="row">
+            
+            <div class="col-sm form-group">
+        
+                <div class="form-group">
+                    <label for="horariocompativel" class="required">O horário é compatível com o curso? </label>
+                    <input type="text" class="form-control" name="horariocompativel" value="{{old('horariocompativel',$estagio->horariocompativel)}}">
+                </div>
+
+            </div>
+
+
+            <div class="col-sm form-group">
+
+                <div class="form-group">
+                    <label for="departamento" class="required">Escolha o Departamento: </label>
+                    <select name="departamento" class="form-control" id="departamento">
+                        <option value="" selected="">- Selecione -</option>
+                            @foreach ($estagio->departamentoOptions() as $option)
+                                @if (old('departamento') == '' and isset($estagio->departamento) )
+                                    <option value="{{$option}}" {{ ( $estagio->departamento == $option) ? 'selected' : ''}}>
+                                        {{$option}}
+                                    </option>
+                                @else
+                                    <option value="{{$option}}" {{ ( old('departamento') == $option) ? 'selected' : ''}}>
+                                        {{$option}}
+                                    </option>
+                                @endif
+                            @endforeach
+                    </select>
+                </div>
+            
+            </div>
+
         </div>
 
         <div class="row">

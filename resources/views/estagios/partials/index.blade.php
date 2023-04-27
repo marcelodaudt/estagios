@@ -68,23 +68,18 @@ button {
                     Renovação 
                 @endif
             </td>
-
             <td> 
                 {{ $estagio->nomhab }} 
             </td>
-
             <td> 
                 {{ $estagio->empresa->nome }} 
             </td>
-
             <td>
                 {{$estagio->data_inicial}} - {{$estagio->data_final}}
             </td>
-
             <td> 
                 {{ $estagio->getStatus()[$estagio->status]['name'] }} 
             </td>
-
             <td>
                 @if(empty($estagio->tipodeferimento) )
                     Ainda não realizado
@@ -92,16 +87,17 @@ button {
                     {{$estagio->tipodeferimento}}
                 @endif
             </td>
-
-            @can('admin')
             <td>
-                <form  method="POST" action="{{ $app_url }}/estagios/{{$estagio->id}}">         
-                    @csrf
-                    @method('delete')
-                    <button class="botao" type="submit" onclick="return confirm('Tem certeza que deseja deletar?');"><i class="fas fa-trash-alt"></i></button>
-                </form>
+                @if($estagio->getStatus()[$estagio->status]['name'] != 'Concluído')
+                    @can('admin')
+                        <form  method="POST" action="{{ $app_url }}/estagios/{{$estagio->id}}">         
+                            @csrf
+                            @method('delete')
+                            <button class="botao" type="submit" onclick="return confirm('Tem certeza que deseja deletar?');"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    @endcan('admin')
+                @endif
             </td>
-            @endcan('admin')
 
         </tr>
         @empty

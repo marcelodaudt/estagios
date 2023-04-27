@@ -36,14 +36,15 @@
         @if($parecerista->presidente == 1) Presidente da Comissão @endif
       </td>
       <td>{{$parecerista->numero_usp}}</td>
-      <td><a href="{{ $app_url }}/pareceristas/{{$parecerista->id}}/edit"><i class="fas fa-edit"></a></i></td>
-      <td>
+      <td style="display: inline-flex; flex-direction: row; justify-content: center; align-items: center;">
+        <a href="{{ $app_url }}/pareceristas/{{$parecerista->id}}/edit"><i class="fas fa-edit"></a></i>
+
         <form method="POST" action="{{ $app_url }}/pareceristas/{{$parecerista->id}}" class="form-inline">
           @csrf
           @method('delete')
           <button type="submit" class="btn btn-link" onclick="return confirm('Tem certeza que deseja deletar esse parecerista?');"><i class="fas fa-trash-alt"></i></button>
         </form>
-
+        
         <form method="POST" action="{{ $app_url }}/adminLogandoComoParecerista/{{$parecerista->numero_usp}}" class="form-inline">
             @csrf
             <button type="submit" class="btn btn-link"><i class="fas fa-user-secret"></i></button>

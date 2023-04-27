@@ -127,11 +127,6 @@ aditivo por até 12 meses.
         </div>
 
         <div class="form-group">
-        <label for="justificativa">Justificativa (Não é necessário preencher em caso de estágio inferior a 6 meses): </label>
-            <textarea name="justificativa" rows="5" cols="60">{{old('justificativa',$estagio->justificativa)}}</textarea>
-        </div>
-
-        <div class="form-group">
         <label for="atividades">Descrição detalhada das atividades a serem desenvolvidas pelo 
         estagiário para que o parecerista analise e constate a relação destas com a formação 
         acadêmica do aluno: </label>
@@ -158,41 +153,50 @@ aditivo por até 12 meses.
             </div>    
             <div class="col-sm form-group">
                 <div class="form-group">
-                <label for="data_final" class="required">Data de término do Estágio: </label>
+                    <label for="data_final" class="required">Data de término do Estágio: </label>
                     <input type="text" class="form-control datepicker" id="data_final" name="data_final" value="{{old('data_final',$estagio->data_final)}}" onblur="calculodata(this);">
                 </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="justificativa">Justificativa (Não é necessário preencher em caso de estágio inferior a 6 meses): </label>
+            <textarea name="justificativa" rows="5" cols="60">{{old('justificativa',$estagio->justificativa)}}</textarea>
         </div>
         
     </div>
 </div>
-</div>
+
 <hr>
 
-
 <div class="card">
-  <div class="card-header">Carga Horária Semanal (máximo 30 horas)</div>
-    <div class="card-body">
+    <div class="card-header">Carga Horária Semanal (máximo 30 horas)</div>
+        <div class="card-body">
 
-        <div class="row">
-            <div class="col-sm form-group">
+            <div class="row">
+                <div class="col-sm form-group">
                 
-                <div class="form-group">
-                <label for="cargahoras" class="required">Horas: </label>
-                    <input type="text" class="form-control" id="cargahoras" name="cargahoras" value="{{old('cargahoras',$estagio->cargahoras)}}">
-                </div>
+                    <div class="form-group">
+                        <label for="cargahoras" class="required">Horas: </label>
+                        <input type="text" class="form-control" id="cargahoras" name="cargahoras" value="{{old('cargahoras',$estagio->cargahoras)}}">
+                    </div>
                 </div>
             <div class="col-sm form-group">
                 <div class="form-group">
-                <label for="cargaminutos" class="required">Minutos: </label>
+                    <label for="cargaminutos" class="required">Minutos: </label>
                     <input type="text" class="form-control" id="cargaminutos" name="cargaminutos" value="{{old('cargaminutos',$estagio->cargaminutos)}}">
                 </div>
-                </div></div>
+            </div>
 
             <div class="form-group">
                 <label for="horario" class="required">Horário do Estágio (Caso os horários sejam em períodos diferentes, favor especificar): </label>
                 <input type="text" class="form-control horario" id="horario" name="horario" value="{{old('horario',$estagio->horario)}}">
             </div>
 
+        </div>
+        <div class="form-group">
+                <p><b>Obs.:</b> Para estágios do Departamento Educomunicação (CCA) - máximo 40 horas.</p>
+        </div>
     </div>
 </div>
 <hr>

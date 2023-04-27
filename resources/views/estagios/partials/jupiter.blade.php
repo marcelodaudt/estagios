@@ -44,12 +44,16 @@
     </tbody>
 </table>
 
+<div class="alert alert-info" role="alert">
 <b>Periodo de Matrícula</b>: {{ $estagio->periodo }}<br>
 <b>Média ponderada</b>: {{ $estagio->media_ponderada }}<br>
+<b>Semestre atual</b>: {{ $estagio->semestre_atual }}º<br>
 <b>Situação sobre Estágio USP</b>: 
 @if ($estagio->VerificarEstagio != 'true')
   Este estudante NÃO possui nenhum estágio USP ativo no sistema.<br>
 @else
   Este estudante JÁ POSSUI um estágio USP ativo no sistema, favor checar a situação do aluno em caso este seja um novo estágio ou em processo de aprovação.<br>
+  <b>Data final do estágio vigente:<b> {{$estagio->data_final}}
 @endif
+</div>
 <br>

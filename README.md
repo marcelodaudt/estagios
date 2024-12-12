@@ -4,6 +4,7 @@ Procedimentos de deploy básico para desenvolvimento:
 
     composer install
     cp .env.example .env
+    php artisan key:generate
     php artisan migrate:fresh --seed
 
 ## Tutoriais

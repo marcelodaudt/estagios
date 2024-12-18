@@ -10,7 +10,7 @@
 
 <form method="POST" action="{{ $app_url }}/analise_tecnica/{{$estagio->id}}">
     @csrf
-    <details>
+    <details open>
         <summary>Clique aqui para visualizar mais informações sobre a matricula vigente</summary>
         <br>
         @include('estagios.partials.jupiter')
@@ -37,7 +37,7 @@
             Enviar para parecerista
         </button>
         
-        <button type="submit" class="btn btn-warning" name="analise_tecnica_action" value="concluir">Concluir Estágio </button>
+        <button type="submit" class="btn btn-warning" name="analise_tecnica_action" value="concluir">Ativar Estágio </button>
     </div>
 
 </form>

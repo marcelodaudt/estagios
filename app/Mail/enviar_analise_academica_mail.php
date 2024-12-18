@@ -31,9 +31,8 @@ class enviar_analise_academica_mail extends Mailable
      */
     public function build()
     {
-        //$to = [$this->estagio->email,config('mail.reply_to.address')];
-        $to = 'marcelo.daudt@usp.br';
-              
+        $to = [$this->estagio->email,config('mail.reply_to.address')];
+
         $subject = $this->estagio->nome . ' - RESULTADO DO PARECER DE MÉRITO - Seção de Estágios - ECA-USP';
 
         $pdf = PDF::loadView('pdfs.parecer', ['estagio'=>$this->estagio]);

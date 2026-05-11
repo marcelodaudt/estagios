@@ -8,10 +8,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.2.5|^8.0",
         "barryvdh/laravel-debugbar": "^3.5",
-        "barryvdh/laravel-dompdf": "^0.8.6",
-        "doctrine/dbal": "^2.10",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -25,8 +25,8 @@
         "uspdev/laravel-usp-faker": "^1.0",
         "uspdev/laravel-usp-theme": "^2.0",
         "uspdev/laravel-usp-validators": "^1.0",
-        "uspdev/replicado": "^1.13",
-        "uspdev/senhaunica-socialite": "^2.0",
+        "uspdev/replicado": "^1.27",
+        "uspdev/senhaunica-socialite": "^3.0",
         "uspdev/utils": "^1.0.4"
     },
     "require-dev": {

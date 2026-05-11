@@ -37,6 +37,7 @@ class EstagioRequest extends FormRequest
             'especifiquevt' => 'required|max:255',
             'seguradora' => 'required|max:255',
             'numseguro' => 'required|max:255',
+            'departamento' => 'required|max:255',
 
             //campos opcionais
             'controlehorario' => 'nullable',

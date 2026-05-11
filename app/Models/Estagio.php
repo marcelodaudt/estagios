@@ -184,7 +184,8 @@ class Estagio extends Model implements Auditable
 
     public function getMediaPonderadaAttribute() {
         if($this->numero_usp){
-            return Graduacao::obterMediaPonderadaSuja($this->numero_usp);
+            // Adicionado o '27' (código da ECA) como segundo parâmetro:
+            return Graduacao::obterMediaPonderadaSuja($this->numero_usp, 27);
         }else{
             return 'Média não disponível, favor entrar em contato com o Setor de Estágios';
         }

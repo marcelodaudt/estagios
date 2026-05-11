@@ -40,47 +40,39 @@
 </div>
 
 <div style="text-align: justify;">
-    <p style="text-indent : 1em;"><b>{{ $estagio->empresa->nome }}, {{ $estagio->empresa->endereco }}, CEP {{ $estagio->empresa->cep }}, CNPJ
-            {{ $estagio->empresa->cnpj }}</b>, representada por
-        {{ $estagio->pronome_possessivo }}
-        <b>{{ $estagio->empresa->cargo_do_representante }}</b>, Sr(a)
-        <b>{{ $estagio->empresa->nome_do_representante }}</b>, adiante designada CONCEDENTE e
-        {{ $estagio->artigo_definido }} ESTAGIÁRIO
-        <b>{{ $estagio->nome }}</b>, estudante, residente a <b>@foreach ($estagio->endereco as
-            $campos) {{ $campos }}@endforeach</b>, portador da cédula de identidade
-        {{ $estagio->tipo_identidade }} n°
-        <b>{{ $estagio->identidade }}</b> e CPF nº
-        <b>{{ $estagio->cpf }}</b>, aluno do Curso de
-        <b>{{ $estagio->curso }}</b>, nº USP
-        <b>{{ $estagio->numero_usp }}</b>, e como INTERVENIENTE a UNIVERSIDADE DE SÃO PAULO, autarquia estadual de
-        regime especial, regida por seu Estatuto, aprovado pela Resolução nº 3.461, de 07 de outubro de 1988, e pelo
-        Regimento Geral, aprovado
-        pela Resolução nº 3.745, de 19 de outubro de 1990, com sede em São Paulo (Capital), inscrita no CNPJ-MF sob nº
-        63.025.530/0001-04, adiante denominada USP, no interesse da Escola de Comunicações e Artes,
-        localizada à Rua Prof. Lúcio Martins Rodrigues, 443, na Cidade Universitária “Armando de Salles Oliveira, Butantã, São Paulo, neste
-        ato representada pel{{ $estagio->artigo_definido }} Presidente da
-        Comissão de Graduação, <b>{{ \App\Models\Parecerista::nomePresidente() }}</b>, da mencionada
-        Faculdade, celebram o presente TERMO DE COMPROMISSO DE ESTÁGIO, que se vincula ao convênio para Realização de
-        Estágio firmado entre a CONCEDENTE e a INSTITUIÇÃO DE ENSINO nos termos da Lei no 9.394/96 e da Lei nº
-        11.788/08, conforme as condições a seguir:</p>
-    <p>1. O estágio terá duração de <b>{{ $estagio->duracao }}</b>, a começar em
-        <b>{{$estagio->data_inicial}}</b> terminando em
-        <b>{{$estagio->data_final}}</b> que poderá
-        ser eventualmente prorrogado ou modificado por documento complementar <b>(TERMO ADITIVO)</b>.</p>
-    <p>1.1. Qualquer das partes poderá pedir rescisão, com 05 (cinco) dias de antecedência.</p>
-    <p>1.2. O estagiário não terá vínculo empregatício de qualquer natureza com a CONCEDENTE em razão deste TERMO DE
-        COMPROMISSO</p>
-    <p>2. No período de estágio, o estagiário cumprirá <b>{{ $estagio->cargahoras }}h{{ $estagio->cargaminutos }}
-            semanais</b>. O horário de estágio será combinado
-        de acordo com as conveniências mútuas, ressalvadas as horas de aulas, de provas e de outros trabalhos didáticos
-        e as limitações dos meios de transportes.</p>
+    <p style="text-indent : 1em;">UNIVERSIDADE DE SÃO PAULO, estabelecida à Rua da Reitoria, nº 109, na cidade de 
+        São Paulo, estado de São Paulo, CNPJ nº 63.025.530/0001-04, através da ESCOLA DE COMUNICAÇÕES E ARTES, 
+        com endereço à Av. Prof. Lúcio Martins Rodrigues, 443 - Cidade Universitária - Butantã, na cidade de São 
+        Paulo, Estado de São Paulo, CNPJ 63.025.530/0021-58, representada por sua Diretora Profa. Dra. Maria Clotilde
+        Perez Rodrigues, adiante designada INTERVENIENTE e o(a) ESTAGIÁRIO(A) <b>{{ $estagio->nome }}</b>, 
+        estudante, residente a <b>@foreach ($estagio->endereco as $campos) {{ $campos }}@endforeach</b>, portador
+        da cédula de identidade {{ $estagio->tipo_identidade }} n° <b>{{ $estagio->identidade }}</b> e CPF nº
+        <b>{{ $estagio->cpf }}</b>, aluno do Curso de <b>{{ $estagio->curso }}</b>, matrícula nº  
+        <b>{{ $estagio->numero_usp }}</b>, e como CONCEDENTE <b>{{ $estagio->empresa->nome }}</b> (empresa ou instituição de
+        ensino), com endereço à <b>{{ $estagio->empresa->endereco }}</b>, CEP {{ $estagio->empresa->cep }}, CNPJ
+        <b>{{ $estagio->empresa->cnpj }}</b>, celebram o presente TERMO DE COMPROMISSO DE ESTÁGIO, nos termos da Lei
+        nº 11.788/2008, conforme as condições a seguir:
+    </p>
+    <p>1. O estágio terá duração (não superior a um ano) de <b>{{ $estagio->duracao }}</b> a começar em
+        <b>{{$estagio->data_inicial}}</b> terminando em <b>{{$estagio->data_final}}</b> que poderá ser eventualmente
+        prorrogado, ou modificado por documento complementar, desde que não exceda o prazo de 2 (dois) anos de
+        vigência do estágio, computadas as renovações. Eventualmente qualquer das partes poderá solicitar a rescisão,
+        por escrito, com 5 (cinco) dias de antecedência. O(A) estagiário(a) não terá vínculo empregatício de qualquer
+        natureza com a CONCEDENTE em razão deste TERMO DE COMPROMISSO.
+    </p>
+    <p>2. No período de estágio, o(a) ESTAGIÁRIO(A) cumprirá <b>{{ $estagio->cargahoras }} horas semanais</b>.
+        O horário de estágio será das <b>{{ $estagio->horario }}</b>, combinado
+        de acordo com as conveniências mútuas, ressalvadas as horas de aulas, provas e outros trabalhos didáticos, assim
+        como as limitações dos meios de transportes.</p>
     <p>2.1. Nos períodos de avaliação do rendimento escolar, conforme informado pelo estágiário, a jornada de atividade
         em estágio será reduzida à metade, sem desconto no valor da bolsa.</p>
     <p>3. A CONCEDENTE designa o Sr(a). <b>{{ $estagio->nome_do_supervisor_estagio }}</b>, que ocupa o cargo de
         <b>{{$estagio->cargo_do_supervisor_estagio}}</b>,
-        para ser o(a) SUPERVISOR(a) INTERNO(a) do Estágio que será por ele programado.</p>
+        para ser o(a) SUPERVISOR(a) INTERNO(a) do Estágio que será por ele programado.
+    </p>
     <p>4. O ESTAGIÁRIO se obriga a cumprir fielmente a programação do estágio, salvo impossibilidade da qual a
-        CONCEDENTE será previamente informada.</p>
+        CONCEDENTE será previamente informada.
+    </p>
     <p>5. O ESTAGIÁRIO receberá BOLSA DE COMPLEMENTAÇÃO EDUCACIONAL DE <b>R$ {{ $estagio->valorbolsa }}</b>
         {{ $estagio->tipobolsa}} e
         auxílio-transporte no
@@ -89,32 +81,44 @@
         não ter natureza
         salarial, não se enquadra no regime do FGTS (Fundo de Garantia por Tempo de Serviço) e não sofrerá qualquer
         desconto, inclusive
-        previdenciário, exceção feita à retenção do imposto de renda na fonte, quando devido.</p>
+        previdenciário, exceção feita à retenção do imposto de renda na fonte, quando devido.
+    </p>
     <p>5.1.O estagiário terá direito, sempre que o estágio tenha duração igual ou superior a 1 (um) ano, a um período de
-        recesso de 30 (trinta) dias, a ser gozado preferencialmente durante suas férias escolares.</p>
+        recesso de 30 (trinta) dias, a ser gozado preferencialmente durante suas férias escolares.
+    </p>
     <p>5.2. O recesso de que trata este artigo deverá ser remunerado quando o estagiário receber bolsa ou outra forma de
-        contraprestação.</p>
+        contraprestação.
+    </p>
     <p>5.3. Os dias de recesso previstos neste artigo serão concedidos de maneira proporcional, nos casos de o estágio
-        ter duração inferior a 1(um) ano.</p>
+        ter duração inferior a 1(um) ano.
+    </p>
     <p>6. Quando, em razão da programação do estágio, o aluno tiver despesas extras, a CONCEDENTE providenciará o seu
-        pronto reembolso.</p>
+        pronto reembolso.
+    </p>
     <p>7. O ESTAGIÁRIO se obriga a cumprir as normas e os regulamentos internos da CONCEDENTE, pela inobservância dessas
-        normas, o ESTAGIÁRIO responderá por perdas e danos e a rescisão do compromisso.</p>
+        normas, o ESTAGIÁRIO responderá por perdas e danos e a rescisão do compromisso.
+    </p>
     <p>7.1 O estagiário declara ter conhecimento e estar de acordo que toda contribuição prática ou intelectual
         desenvolvida em função de suas tarefas como estagiário são de propriedade da Empresa Concedente, não tendo
-        direito de subtrair, na totalidade ou em parte, programas, documentos ou arquivos.</p>
+        direito de subtrair, na totalidade ou em parte, programas, documentos ou arquivos.
+    </p>
     <p>8. O ESTAGIÁRIO está segurado contra acidentes pessoais, pela Apólice de Seguros <b>nº
             {{ $estagio->numseguro }}</b>,
-        que está compatível com valores de mercado, da <b>{{ $estagio->seguradora }}</b>.</p>
+        que está compatível com valores de mercado, da <b>{{ $estagio->seguradora }}</b>.
+    </p>
     <p>9. O ESTAGIÁRIO deverá informar de imediato e por escrito à CONCEDENTE qualquer fato que interrompa, suspenda ou
         cancele sua matrícula na instituição de Ensino INTERVENIENTE, ficando ele responsável por quaisquer despesas
-        causadas pela ausência dessa informação.</p>
+        causadas pela ausência dessa informação.
+    </p>
     <p>10. A Instituição de Ensino INTERVENIENTE supervisionará o estágio de conformidade com os seus regulamentos
-        internos, ficando o ESTAGIÁRIO sujeito a essa regulamentação.</p>
+        internos, ficando o ESTAGIÁRIO sujeito a essa regulamentação.
+    </p>
     <p>10.1.Como supervisora, a INSTITUIÇÃO DE ENSINO INTERVENIENTE indica
-        <b>{{ \App\Models\Parecerista::nomePresidente() }}</b>.</p>
+        <b>{{ \App\Models\Parecerista::nomePresidente() }}</b>.
+    </p>
     <p>E, por estarem de acordo com os termos do presente instrumento, <b>as partes o assinam em 03 (três) vias</b>, na
-        presença de duas testemunhas para todos os fins e efeitos de direito.</p>
+        presença de duas testemunhas para todos os fins e efeitos de direito.
+    </p>
 </div>
 
 <div style="page-break-inside: avoid;">
@@ -131,7 +135,7 @@
     {{ $estagio->nome }}<br><br><br>
     ________________________________________________<br>
     {{ \App\Models\Parecerista::nomePresidente() }}<br>
-    Presidente da CG – ECA/USP
+    Presidente da CG ECA/USP
 </div>
 
 <div><br><br>

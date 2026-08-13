@@ -33,6 +33,8 @@ class EmpresaRequest extends FormRequest
             'nome_do_representante' => 'required',
             'cargo_do_representante' => 'required',
             'conceder_acesso_cnpj' => '',
+            'descricao_da_empresa' => 'required',
+            'telefone' => 'required',
             'password' => 'nullable|confirmed|min:10',
             'password_confirmation' => 'nullable',
         ];

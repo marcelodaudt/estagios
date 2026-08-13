@@ -16,11 +16,13 @@
         <b>CNPJ:</b> {{$empresa->cnpj}}<br>
         <b>Nome da Empresa:</b> {{$empresa->cnpj}}<br>
         <b>Área de Atuação:</b> {{$empresa->area_de_atuacao}}<br>
+        <b>Descrição da Empresa:</b> {{$empresa->descricao_da_empresa}}<br>
         <b>Endereço da Empresa:</b> {{$empresa->endereco}}<br>
         <b>CEP:</b> {{$empresa->cep}}<br>
         <b>Nome do Representante da Empresa:</b> {{$empresa->nome_do_representante}}<br>
         <b>E-mail do Representante da Empresa:</b> {{$empresa->email}}<br>
         <b>Cargo do Representante da Empresa:</b> {{$empresa->cargo_do_representante}}<br>
+        <b>Telefone do Representante da Empresa:</b> {{$empresa->telefone}}<br>
         @if($empresa->conceder_acesso_cnpj)
             <br>
             <b>Acesso de administração concedido à:</b> 

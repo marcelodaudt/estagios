@@ -16,34 +16,47 @@
             @endif
         </div>
         <div class="row">
-            <div class="col-4 form-group">
+            <div class="col-6 form-group">
                 <label for="area_de_atuacao" class="required">Área de Atuação da Empresa:</label>
                 <input type="text" maxlength="128" class="form-control" name="area_de_atuacao" value="{{old('area_de_atuacao', $empresa->area_de_atuacao)}}">
             </div> 
-            <div class="col-4 form-group">
+            <div class="col-6 form-group">
+                <label for="descricao_da_empresa" class="required">Descrição da Empresa:</label>
+                <textarea class="form-control" id="descricao_da_empresa" name="descricao_da_empresa">{{old('descricao_da_empresa',$empresa->descricao_da_empresa)}}</textarea>
+                <span style="font-size: 0.8em; color: #666;">Resumo sobre a história e os serviços da empresa.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 form-group">
                 <label for="endereco" class="required">Endereço da Empresa:</label>
                 <input type="text" maxlength="128" class="form-control" name="endereco" value="{{old('endereco', $empresa->endereco)}}">
             </div>
-            <div class="col-4 form-group">
+            <div class="col-6 form-group">
                 <label for="cep" class="required">CEP:</label>
                 <input type="text" maxlength="18" class="form-control cep" name="cep" value="{{old('cep', $empresa->cep)}}">
             </div>
         </div>
         <div class="row">
-            <div class="col-4 form-group">
+            <div class="col-6 form-group">
                 <label for="nome_do_representante" class="required">Nome do Representante da Empresa:</label>
                 <input type="text" maxlength="128" class="form-control" name="nome_do_representante" value="{{old('nome_do_representante', $empresa->nome_do_representante)}}">
             </div>    
-            <div class="col-4 form-group">
+            <div class="col-6 form-group">
                 <label for="cargo_do_representante" class="required">Cargo do Representante da Empresa:</label>
                 <input type="text" maxlength="128" class="form-control" name="cargo_do_representante" value="{{old('cargo_do_representante', $empresa->cargo_do_representante)}}">
             </div> 
-            <div class="col-4 form-group">
-                <label for="email" class="required">E-mail do Representante da Empresa:</label>
-                <input type="email" maxlength="128" class="form-control" name="email" value="{{old('email', $empresa->email)}}">
-            </div>   
         </div>
 
+        <div class="row">
+            <div class="col-6 form-group">
+                <label for="email" class="required">E-mail do Representante da Empresa:</label>
+                <input type="email" maxlength="128" class="form-control" name="email" value="{{old('email', $empresa->email)}}">
+            </div>
+            <div class="col-6 form-group">
+                <label for="telefone" class="required">Telefone do Representante da Empresa:</label>
+                <input type="telefone" maxlength="128" class="form-control" name="telefone" value="{{old('telefone', $empresa->telefone)}}">
+            </div>            
+        </div>
         <div class="row">
             <div class="col-4 form-group">
                 <label for="password" >Senha:</label>

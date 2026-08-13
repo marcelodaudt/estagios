@@ -90,7 +90,7 @@ class LoginEmpresaController extends Controller
                     "Foi solicitado login para email <b> {$request->email} </b>e cnpj <b>{$request->cnpj}</b></br> <br>
                     Porém, no sistema consta a relação:<br>
                     email <b>{$email_limpo}</b> e cnpj <b>{$empresa->cnpj}</b> <br><br>
-                    Caso necessite corrigir esses dados, escreva para estagiosfflch@usp.br 
+                    Caso necessite corrigir esses dados, escreva para estagioseca@usp.br 
                     informando o cnpj e email correto da empresa
                     ");
                 return redirect('/login/empresa');

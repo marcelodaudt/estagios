@@ -36,6 +36,19 @@ class VagaController extends Controller
     public function store(VagaRequest $request){
         $this->authorize('logado');
         $validated = $request->validated();
+
+        // Verificação do curso de Edocuminicação - 40 horas semanais
+        if($request->curso == 'Curso de Educomunicação' && $request->expediente > 40){
+            request()->session()->flash('alert-danger', 'Carga Horária do Estágio para o Curso de Educomunicação não pode ser maior que 40 horas!');
+            return redirect("vagas/create")->withInput();
+        }
+        
+        // Verificação das 30 horas semanais para os demais cursos
+        if($request->curso != 'Curso de Educomunicação' && $request->expediente > 30){
+            request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 30 horas!');
+            return redirect("vagas/create")->withInput();
+        }
+        
         $validated['user_id'] = auth()->user()->id;
         $validated['status'] = 'Em análise';
         $vaga = Vaga::create($validated);
@@ -68,8 +81,22 @@ class VagaController extends Controller
 
     public function status(Request $request, Vaga $vaga){
         $this->authorize('admin');
-        if($request->status == 'Aprovada') $vaga->status = 'Aprovada';
-        if($request->status == 'Reprovada') $vaga->status = 'Reprovada';
+
+        if($request->status == 'Aprovada') {
+            $vaga->status = 'Aprovada';
+            $vaga->justificativa = null;
+        }
+
+        if($request->status == 'Reprovada') {
+            $request->validate([
+                'justificativa' => 'required|string',
+            ], [
+                'justificativa.required' => 'É necessário informar a justificativa da reprovação.',
+            ]);
+            $vaga->status = 'Reprovada';
+            $vaga->justificativa = $request->justificativa;
+        }
+
         $vaga->save();
         return redirect()->route('vagas.show', [$vaga]);
     }

@@ -25,11 +25,17 @@ class VagaRequest extends FormRequest
     {
         $rules = [
             'titulo' => 'required',
-            'contato' => 'required',
+            'curso' => 'required',
+            'contato' => '',
+            'contato_email' => 'required',
+            'contato_site' => '',
+            'contato_telefone' => '',
             'descricao' => 'required',
+            'requisitos' => 'required',
             'expediente' => 'required',
             'salario' => 'required',
             'horario' => 'required',
+            'intervalo' => 'required',
             'beneficios' => 'required',
             'divulgar_ate' => 'required|data',
             'status' => ''

@@ -30,6 +30,23 @@ class Vaga extends Model
         ];
     }
 
+    public function cursoOptions(){
+        return [
+            'Curso de Artes Cênicas',
+            'Curso de Artes Visuais',
+            'Curso de Artes Visuais',
+            'Curso de Audiovisual',
+            'Curso de Biblioteconomia',
+            'Curso de Editoração',
+            'Curso de Educomunicação',
+            'Curso de Jornalismo',
+            'Curso de Música',
+            'Curso de Publicidade e Propaganda',
+            'Curso de Relações Públicas',
+            'Curso de Turismo'
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');

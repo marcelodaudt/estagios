@@ -71,13 +71,14 @@ class EstagioRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'cnpj'   => empty(auth()->user()->cnpj) ? $this->vaga->cnpj : auth()->user()->cnpj,
+            'cnpj' => auth()->user()->cnpj,
         ]);
     }
 
     public function messages()
     {
         return [
+            'cnpj.required' => 'Atualize o cadastro da empresa antes de executar essa ação',
             'cnpj.exists' => 'Atualize o cadastro da empresa antes de executar essa ação',
         ];
     }

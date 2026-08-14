@@ -18,7 +18,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-success" name="enviar_para_analise_tecnica" value="enviar_para_analise_tecnica"
-                        onClick="return confirm('Tem certeza que quer enviar para o Setor de Estágio?')">
+                        onClick="return confirm('Tem certeza que quer enviar para o Seção de Estágios?')">
                             Salvar e enviar para Análise Técnica do <b>Seção de Estágios
                     </button>
                 </div>
@@ -46,7 +46,7 @@
                 </div>
 
                     <button type="submit" class="btn btn-success" name="enviar_para_analise_tecnica" value="enviar_para_analise_tecnica_renovacao"
-                        onClick="return confirm('Tem certeza que quer enviar para o Setor de Estágio?')">
+                        onClick="return confirm('Tem certeza que quer enviar para a Seção de Estágios?')">
                             Salvar e enviar para Análise Técnica do <b>Setor de Graduação
                     </button>
                 </div>

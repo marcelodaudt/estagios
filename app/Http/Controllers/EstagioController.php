@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estagio;
+use App\Models\EstagioHorario;
 use App\Models\File;
 use App\Models\Aditivo;
 use App\Models\User;
@@ -89,43 +90,56 @@ class EstagioController extends Controller
     {
         $this->authorize('empresa');
         $validated = $request->validated();
-        // Verificação de estágios do CCA - 40 horas semanais
-        if($request->departamento == 'CCA - Educomunicação'){
-            if($request->cargahoras > 40){
-                request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 40 horas!');
-                return redirect("estagios/create")->withInput();
+
+        // A carga horária semanal/diária é calculada a partir da grade de horários por dia da semana
+        $horarios = $validated['horarios'] ?? [];
+        unset($validated['horarios']);
+
+        // Verificação de estágios do CCA - 40 horas semanais / demais departamentos - 30 horas semanais
+        $limiteSemanalMinutos = ($request->departamento == 'CCA - Educomunicação') ? 40 * 60 : 30 * 60;
+
+        $resultado = EstagioHorario::processarGrade($horarios, $limiteSemanalMinutos);
+        if ($resultado['erro']) {
+            request()->session()->flash('alert-danger', $resultado['erro']);
+            return redirect("estagios/create")->withInput();
+        }
+
+        $linhasHorario = $resultado['linhas'];
+        $validated['cargahoras'] = intdiv($resultado['totalSemanalMinutos'], 60);
+        $validated['cargaminutos'] = $resultado['totalSemanalMinutos'] % 60;
+        $validated['cargahorasdiaria'] = intdiv($resultado['maiorDiaMinutos'], 60);
+        $validated['cargaminutosdiaria'] = $resultado['maiorDiaMinutos'] % 60;
+
+        // Verificação se existe outro estágio para o mesmo aluno e mesma empresa
+        $verificador = DB::table('estagios')
+                    ->select('numero_usp')
+                    ->where('numero_usp', '=', $request->input('numero_usp'))
+                    ->where('cnpj', '=', $request->input('cnpj'))
+                    ->where(function($query) {
+                        $query->orwhere('status', 'em_analise_tecnica')
+                            ->orWhere('status', 'em_analise_academica')
+                            ->orWhere('status', 'em_alteracao')
+                            ->orWhere('status', 'assinatura')
+                            ->orWhere('status', 'concluido');
+                    })->get();
+        if($verificador->isEmpty()){
+            $validated['status'] = 'em_elaboracao';
+            $estagio = Estagio::create($validated);
+            $curso = Graduacao::curso($estagio->numero_usp, 27);
+            if($curso) {
+                $estagio->nomcur =  $curso['nomcur'];
+                $estagio->nomhab =  $curso['nomhab'];
             }
-        // Verificação das 30 horas semanais
-        } elseif($request->cargahoras > 30){
-                request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 30 horas!');
-                return redirect("estagios/create")->withInput();
+            $estagio->save();
+
+            foreach ($linhasHorario as $linha) {
+                $estagio->horarios()->create($linha);
+            }
+
+            return redirect("estagios/{$estagio->id}");
         } else {
-            // Verificação se existe outro estágio para o mesmo aluno e mesma empresa
-            $verificador = DB::table('estagios')
-                        ->select('numero_usp')
-                        ->where('numero_usp', '=', $request->input('numero_usp'))
-                        ->where('cnpj', '=', $request->input('cnpj'))
-                        ->where(function($query) {
-                            $query->orwhere('status', 'em_analise_tecnica')
-                                ->orWhere('status', 'em_analise_academica')
-                                ->orWhere('status', 'em_alteracao')
-                                ->orWhere('status', 'assinatura')
-                                ->orWhere('status', 'concluido');
-                        })->get();
-            if($verificador->isEmpty()){
-                $validated['status'] = 'em_elaboracao';
-                $estagio = Estagio::create($validated);
-                $curso = Graduacao::curso($estagio->numero_usp, 27);
-                if($curso) {
-                    $estagio->nomcur =  $curso['nomcur'];
-                    $estagio->nomhab =  $curso['nomhab'];
-                }
-                $estagio->save();
-                return redirect("estagios/{$estagio->id}");
-            } else {
-                request()->session()->flash('alert-danger', 'Já existe um estágio ativo ou em processo de ativação para esse aluno!');
-                return redirect("estagios/create")->withInput();
-            }
+            request()->session()->flash('alert-danger', 'Já existe um estágio ativo ou em processo de ativação para esse aluno!');
+            return redirect("estagios/create")->withInput();
         }
     }
 

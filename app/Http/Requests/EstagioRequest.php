@@ -30,26 +30,18 @@ class EstagioRequest extends FormRequest
             'tipobolsa' => 'required_if:tipoestagio,==,Obrigatório Remunerado,Não-obrigatório Remunerado',
             'data_inicial' => 'required|data',
             'data_final' => 'required|data',
-            'cargahoras' => 'required|max:255',
-            'cargaminutos' => 'required|max:255',
-            'horario' => 'required',
+            // A carga horária (semanal e diária) é calculada a partir da grade de horários
+            // por dia da semana (campo "horarios"), conferida manualmente no controller.
+            'horario' => 'nullable',
             'auxiliotransporte' => 'required|max:255',
             'especifiquevt' => 'required|max:255',
             'seguradora' => 'required|max:255',
             'numseguro' => 'required|max:255',
             'departamento' => 'required|max:255',
+            'atividades' => 'required',
 
             //campos opcionais
-            'controlehorario' => 'nullable',
-            'supervisao' => 'nullable',
-            'interacao' => 'nullable',
-            'enderecoedias' => 'nullable',
             'justificativa' => 'nullable',
-            'atividades' => 'nullable',
-
-            //pandemia
-            'pandemiahomeoffice' => 'required|max:255',
-            'pandemiamedidas' => 'required_if:pandemiahomeoffice,==,Não',
 
             //empresa
             'cnpj' => 'required|max:255|exists:empresas,cnpj',
@@ -64,6 +56,13 @@ class EstagioRequest extends FormRequest
             //
             'horariocompativel' => 'nullable',
         ];
+
+        // Grade de horários por dia da semana: entrada, saída e tempo de intervalo
+        foreach (array_keys((new \App\Models\Estagio)->diasSemanaOptions()) as $dia) {
+            $rules["horarios.{$dia}.entrada"] = 'nullable|date_format:H:i';
+            $rules["horarios.{$dia}.saida"] = 'nullable|date_format:H:i';
+            $rules["horarios.{$dia}.intervalo"] = 'nullable|date_format:H:i';
+        }
 
         return $rules;
     }

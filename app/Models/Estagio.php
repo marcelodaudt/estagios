@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\Empresa;
 use App\Models\User;
 use App\Models\Aditivo;
+use App\Models\EstagioHorario;
 use App\Models\Parecerista;
 use App\Utils\ReplicadoUtils;
 use Uspdev\Replicado\Pessoa;
@@ -25,6 +26,61 @@ class Estagio extends Model implements Auditable
 
     public function arquivos(){
         return $this->hasMany(File::class);
+    }
+
+    public function horarios(){
+        return $this->hasMany(EstagioHorario::class)->orderBy('dia_semana')->orderBy('hora_entrada');
+    }
+
+    public function diasSemanaOptions(){
+        return [
+            'segunda' => 'Segunda-feira',
+            'terca' => 'Terça-feira',
+            'quarta' => 'Quarta-feira',
+            'quinta' => 'Quinta-feira',
+            'sexta' => 'Sexta-feira',
+            'sabado' => 'Sábado',
+            'domingo' => 'Domingo',
+        ];
+    }
+
+    /* Monta, para cada dia da semana, a entrada/saída/intervalo já cadastrados,
+       usado para pré-preencher a grade de horários no formulário. */
+    public function getHorariosPorDiaAttribute() {
+        $porDia = [];
+        foreach ($this->diasSemanaOptions() as $dia => $label) {
+            $porDia[$dia] = ['entrada' => '', 'saida' => '', 'intervalo' => '', 'total' => ''];
+        }
+
+        if ($this->exists) {
+            foreach ($this->horarios as $registro) {
+                $porDia[$registro->dia_semana] = [
+                    'entrada' => substr($registro->hora_entrada, 0, 5),
+                    'saida' => substr($registro->hora_saida, 0, 5),
+                    'intervalo' => $registro->tempo_intervalo ? substr($registro->tempo_intervalo, 0, 5) : '',
+                    'total' => $registro->total,
+                ];
+            }
+        }
+
+        return $porDia;
+    }
+
+    /* Resumo textual dos horários por dia da semana, para uso nos termos em PDF. */
+    public function getHorarioResumoAttribute() {
+        $partes = [];
+        foreach ($this->diasSemanaOptions() as $dia => $label) {
+            $h = $this->horarios_por_dia[$dia];
+            if (empty($h['entrada'])) {
+                continue;
+            }
+            $texto = "{$h['entrada']} às {$h['saida']}";
+            if (!empty($h['intervalo'])) {
+                $texto .= " (intervalo de {$h['intervalo']})";
+            }
+            $partes[] = "{$label}: {$texto}";
+        }
+        return implode('; ', $partes);
     }
 
     public function avaliacao_empresaOptions(){
@@ -87,14 +143,6 @@ class Estagio extends Model implements Auditable
             'Parcialmente'
         ];
     }  
-
-    public function pandemiahomeofficeOptions(){
-        return [
-            'Sim',
-            'Não'
-        ];
-    }
-
 
     public function tipodeferimentoOptions(){
         return [

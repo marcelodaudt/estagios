@@ -105,11 +105,26 @@
 
     <br>
 
-      <div class="card-header"><b>Carga Horária Semanal (máximo 30 horas)</b></div>
+      <div class="card-header"><b>Carga Horária</b></div>
         <div class="card-body">
-            <b>Carga horária:</b> {{$estagio->cargahoras}} horas e {{$estagio->cargaminutos}} minutos.<br>
-            <b>Horário do estágio:</b> {{$estagio->horario}}<br>
-        </div>             
+            <b>Carga horária semanal (máximo 30 horas):</b> {{$estagio->cargahoras}} horas e {{$estagio->cargaminutos}} minutos.<br>
+            <b>Carga horária diária (máximo 6 horas):</b> {{$estagio->cargahorasdiaria}} horas e {{$estagio->cargaminutosdiaria}} minutos.<br>
+            <b>Horário por dia da semana:</b><br>
+            @foreach ($estagio->diasSemanaOptions() as $dia => $label)
+                @if ($estagio->horarios_por_dia[$dia]['entrada'])
+                    &nbsp;&nbsp;{{ $label }}: Entrada {{ $estagio->horarios_por_dia[$dia]['entrada'] }},
+                    Saída {{ $estagio->horarios_por_dia[$dia]['saida'] }}
+                    @if ($estagio->horarios_por_dia[$dia]['intervalo'])
+                        , Intervalo {{ $estagio->horarios_por_dia[$dia]['intervalo'] }}
+                    @endif
+                    - Total: {{ $estagio->horarios_por_dia[$dia]['total'] }}
+                    <br>
+                @endif
+            @endforeach
+            @if($estagio->horario)
+                <b>Observações sobre o horário:</b> {{$estagio->horario}}<br>
+            @endif
+        </div>
 
     <br>
 
@@ -125,27 +140,8 @@
         <div class="card-body">
             <b>Seguradora:</b> {{$estagio->seguradora}}<br>
             <b>Número da apólice:</b> {{$estagio->numseguro}}<br>
-        </div>            
+        </div>
 
-    <br>
-
-        <div class="card-header"><b>Informações em caso de estágio domiciliar</b></div>
-            <div class="card-body">
-                <b>Método de controle de horário:</b> {{$estagio->controlehorario}}<br>
-                <b>Método de supervisão interna:</b> {{$estagio->supervisao}}<br>
-                <b>Interação com ambiente, colaboradores e dias onde ocorrerá o deslocamento para a empresa:</b> {{$estagio->interacao}}<br>
-                <b>Endereço e dias do estágio:</b> {{$estagio->enderecoedias}}<br>
-        </div>       
-
-    <br>
-
-        <div class="card-header"><b>Informações relatívas a pandemia de COVID-19</b></div>
-            <div class="card-body">
-                <b>O estágio será realizado em home-office?:</b> {{$estagio->pandemiahomeoffice}}<br>
-                @if(($estagio->pandemiamedidas)!=null)
-                <b>Em caso do estágio não ser home-office, quais as medidas sanitárias adotadas pela empresa são:</b> {{$estagio->pandemiamedidas}}<br>
-                @endif
-            </div>  
 </div>
 
 

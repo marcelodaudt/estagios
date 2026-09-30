@@ -99,9 +99,7 @@ aditivo por até 12 meses.
             </div>
         </div>
         <div class="form-group">
-        <label for="atividades">Descrição detalhada das atividades a serem desenvolvidas pelo 
-        estagiário para que o parecerista analise e constate a relação destas com a formação 
-        acadêmica do aluno: </label>
+        <label for="atividades" class="required">Descrição detalhada das atividades a serem desenvolvidas pelo estagiário: </label>
             <textarea name="atividades" rows="5" cols="60">{{old('atividades',$estagio->atividades)}}</textarea>
         </div>
         <br>
@@ -128,7 +126,7 @@ aditivo por até 12 meses.
             </div>
         </div>
         <div class="form-group">
-            <label for="justificativa">Justificativa (Não é necessário preencher em caso de estágio inferior a 6 meses): </label>
+            <label for="justificativa">Justificativa (Caso o estágio esteja sendo cadastrado em data retroativa, apresente abaixo a justificativa): </label>
             <textarea name="justificativa" rows="5" cols="60">{{old('justificativa',$estagio->justificativa)}}</textarea>
         </div>
     </div>
@@ -137,28 +135,51 @@ aditivo por até 12 meses.
 <hr>
 
 <div class="card">
-    <div class="card-header">Carga Horária Semanal (máximo 30 horas)</div>
+    <div class="card-header">Carga Horária</div>
     <div class="card-body">
+        <label class="required">Informe o horário do estágio para cada dia da semana, incluindo eventuais horários diferenciados, de forma que não haja conflito com o horário das aulas:</label>
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>Dia da semana</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                        <th>Tempo de Intervalo</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($estagio->diasSemanaOptions() as $dia => $label)
+                        <tr>
+                            <td>{{ $label }}</td>
+                            <td><input type="time" class="form-control" name="horarios[{{$dia}}][entrada]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.entrada", $estagio->horarios_por_dia[$dia]['entrada']) }}"></td>
+                            <td><input type="time" class="form-control" name="horarios[{{$dia}}][saida]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.saida", $estagio->horarios_por_dia[$dia]['saida']) }}"></td>
+                            <td><input type="time" class="form-control" name="horarios[{{$dia}}][intervalo]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.intervalo", $estagio->horarios_por_dia[$dia]['intervalo']) }}"></td>
+                            <td><input type="text" class="form-control" id="total-{{$dia}}" value="{{ $estagio->horarios_por_dia[$dia]['total'] }}" readonly></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <small class="form-text text-muted">O Total é calculado automaticamente (Saída menos Entrada, descontado o Tempo de Intervalo). Deixe a linha em branco nos dias sem atividade de estágio. A carga horária semanal (máximo 30h) e diária (máximo 6h) é calculada a partir dos horários informados aqui.</small>
+        </div>
         <div class="row">
             <div class="col-sm form-group">
-                <div class="form-group">
-                    <label for="cargahoras" class="required">Horas: </label>
-                    <input type="text" class="form-control" id="cargahoras" name="cargahoras" value="{{old('cargahoras',$estagio->cargahoras)}}">
-                </div>
-            </div>
-            <div class="col-sm form-group">
-                <div class="form-group">
-                    <label for="cargaminutos" class="required">Minutos: </label>
-                    <input type="text" class="form-control" id="cargaminutos" name="cargaminutos" value="{{old('cargaminutos',$estagio->cargaminutos)}}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="horario" class="required">Horário do Estágio (Caso os horários sejam em períodos diferentes, favor especificar): </label>
-                <input type="text" class="form-control horario" id="horario" name="horario" value="{{old('horario',$estagio->horario)}}">
+                <label for="total-semanal"><b>Carga Horária Semanal Total (máximo 30h):</b></label>
+                <input type="text" class="form-control" id="total-semanal" value="{{ $estagio->cargahoras !== null ? sprintf('%02d:%02d', $estagio->cargahoras, $estagio->cargaminutos) : '' }}" readonly>
             </div>
         </div>
-        <div class="form-group">
-            <p><b>Obs.:</b> Para estágios do Departamento Educomunicação (CCA) - máximo 40 horas.</p>
+        <div class="row">
+            <div class="col-sm form-group">
+                <label for="horario">Observações sobre o horário do estágio (casos atípicos, estágio híbrido, escalas alternadas, etc.): </label>
+                <textarea class="form-control horario" id="horario" name="horario" rows="3">{{old('horario',$estagio->horario)}}</textarea>
+            </div>
+        </div>
+        <div class="alert alert-danger" role="alert">
+            <strong>Atenção:</strong> O horário do estágio deverá ser compatível com o horário escolar do(a) estudante e respeitar o limite máximo de 6 horas diárias e 30 horas semanais, conforme a legislação vigente.
+        </div>
+        <div class="alert alert-danger" role="alert">
+            <strong>Atenção:</strong> Algumas Coordenações de Curso exigem intervalo mínimo de 1 hora entre o estágio presencial e as aulas para deslocamento. Casos específicos poderão ser analisados individualmente, inclusive quando as atividades forem realizadas remotamente. O horário estará sujeito à análise da Coordenação do Curso. Em caso de estágio híbrido, informe os dias presenciais e remotos.
         </div>
     </div>
 </div>
@@ -197,7 +218,6 @@ aditivo por até 12 meses.
             </div>
         </div>
     </div>
-</div>
 
 <hr>
 
@@ -271,64 +291,6 @@ aditivo por até 12 meses.
                     <input type="text" class="form-control" id="numseguro" name="numseguro" value="{{old('numseguro',$estagio->numseguro)}}">
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<hr>
-
-<div class="card">
-    <div class="card-header">Os campos abaixo só devem ser preenchidos em caso de estágio domiciliar</div>
-    <div class="card-body">
-        <br>
-        <div class="form-group">
-            <label for="controlehorario">Como se dará o controle diário dos horários de início e encerramento das atividades?: <br></label>
-            <textarea name="controlehorario" rows="5" cols="60">{{old('controlehorario',$estagio->controlehorario)}}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="supervisao">Como se dará a supervisão interna (por parte da empresa)?: <br></label>
-            <textarea name="supervisao" rows="5" cols="60">{{old('supervisao',$estagio->supervisao)}}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="interacao">Como se dará a interação do estagiário com o ambiente e com os demais colaboradores da 
-            empresa? Haverá deslocamento para a empresa? Se sim, quais dias?: <br></label>
-            <textarea name="interacao" rows="5" cols="60">{{old('interacao',$estagio->interacao)}}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="enderecoedias">Qual o endereço do local e quais serão os dias de realização do estágio?: <br></label>
-            <textarea name="enderecoedias" rows="5" cols="60">{{old('enderecoedias',$estagio->enderecoedias)}}</textarea>
-        </div>
-    </div>
-</div>
-
-<hr>
-
-<div class="card">
-    <div class="card-header">Questões relativas a estágio durante a pandemia de COVID-19</div>
-    <div class="card-body">
-        <br>
-        <div class="col-sm form-group">
-            <div class="form-group">
-                <label for="pandemiahomeoffice" class="required">Durante o período da pandemia, o estágio será realizado em home office?: </label>               
-                <select name="pandemiahomeoffice" class="form-control" id="pandemiahomeoffice" onchange="checagemmmedidas(this);">
-                    <option value="" selected="">- Selecione -</option>
-                        @foreach ($estagio->pandemiahomeofficeOptions() as $option)
-                            @if (old('pandemiahomeoffice') == '' and isset($estagio->pandemiahomeoffice) )
-                                <option value="{{$option}}" {{ ( $estagio->pandemiahomeoffice == $option) ? 'selected' : ''}}>
-                                    {{$option}}
-                                </option>
-                            @else
-                                <option value="{{$option}}" {{ ( old('pandemiahomeoffice') == $option) ? 'selected' : ''}}>
-                                    {{$option}}
-                                </option>
-                            @endif
-                        @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="col-sm form-group" id="medidas">
-            <label for="pandemiamedidas" class="required" required>Descreva brevemente quais são as medidas sanitárias adotadas pela empresa: </label><br>
-            <textarea name="pandemiamedidas" rows="5" cols="60">{{old('pandemiamedidas',$estagio->pandemiamedidas)}}</textarea>
         </div>
     </div>
 </div>

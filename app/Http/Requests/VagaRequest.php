@@ -27,15 +27,18 @@ class VagaRequest extends FormRequest
             'titulo' => 'required',
             'curso' => 'required',
             'contato' => '',
-            'contato_email' => 'required',
+            'contato_email' => '',
             'contato_site' => '',
             'contato_telefone' => '',
             'descricao' => 'required',
             'requisitos' => 'required',
-            'expediente' => 'required',
+            // Carga horária semanal (expediente) é calculada automaticamente a partir de
+            // hora_entrada/hora_saida/tempo_intervalo, conferida manualmente no controller.
+            'expediente' => 'nullable',
             'salario' => 'required',
-            'horario' => 'required',
-            'intervalo' => 'required',
+            'hora_entrada' => 'required|date_format:H:i',
+            'hora_saida' => 'required|date_format:H:i',
+            'tempo_intervalo' => 'required|date_format:H:i',
             'beneficios' => 'required',
             'divulgar_ate' => 'required|data',
             'status' => ''

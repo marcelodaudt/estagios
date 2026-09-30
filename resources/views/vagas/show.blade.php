@@ -67,9 +67,13 @@
         <br></br>
         <b>Valor mensal da Bolsa:</b> R$ {{ $vaga->salario }}
         <br></br>
-        <b>Horário do Estágio:</b> {{ $vaga->horario }}
+        <b>Entrada:</b> {{ substr($vaga->hora_entrada,0,5) }}
         <br></br>
-        <b>Intervalo:</b> {{ $vaga->intervalo }}
+        <b>Saída:</b> {{ substr($vaga->hora_saida,0,5) }}
+        <br></br>
+        <b>Tempo de Intervalo:</b> {{ substr($vaga->tempo_intervalo,0,5) }}
+        <br></br>
+        <b>Carga Horária Diária:</b> {{ $vaga->carga_horaria_diaria }}
         <br></br>
         <b>Divulgar até:</b> {{ $vaga->divulgar_ate }}
         <br></br>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\VagaRequest;
 use App\Models\Vaga;
+use App\Models\EstagioHorario;
 use Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -37,24 +38,18 @@ class VagaController extends Controller
         $this->authorize('logado');
         $validated = $request->validated();
 
-        // Verificação do curso de Edocuminicação - 40 horas semanais
-        if($request->curso == 'Curso de Educomunicação' && $request->expediente > 40){
-            request()->session()->flash('alert-danger', 'Carga Horária do Estágio para o Curso de Educomunicação não pode ser maior que 40 horas!');
+        $erro = $this->validarESetarCargaHoraria($request, $validated);
+        if ($erro) {
+            request()->session()->flash('alert-danger', $erro);
             return redirect("vagas/create")->withInput();
         }
-        
-        // Verificação das 30 horas semanais para os demais cursos
-        if($request->curso != 'Curso de Educomunicação' && $request->expediente > 30){
-            request()->session()->flash('alert-danger', 'Carga Horária do Estágio não pode ser maior que 30 horas!');
-            return redirect("vagas/create")->withInput();
-        }
-        
+
         $validated['user_id'] = auth()->user()->id;
         $validated['status'] = 'Em análise';
         $vaga = Vaga::create($validated);
         return redirect ("vagas/{$vaga->id}");
     }
-    
+
     public function edit(Vaga $vaga) {
         $this->authorize('owner',$vaga);
         return view('/vagas.edit')-> with('vaga', $vaga);
@@ -63,10 +58,54 @@ class VagaController extends Controller
     public function update(VagaRequest $request, Vaga $vaga){
         $this->authorize('owner',$vaga);
         $validated = $request->validated();
+
+        $erro = $this->validarESetarCargaHoraria($request, $validated);
+        if ($erro) {
+            request()->session()->flash('alert-danger', $erro);
+            return redirect("vagas/{$vaga->id}/edit")->withInput();
+        }
+
         # quando houver edição, volta para análise
         $validated['status'] = 'Em análise';
         $vaga->update($validated);
         return redirect("/vagas/{$vaga->id}");
+    }
+
+    /**
+     * Valida o horário (entrada/saída/tempo de intervalo) informado e, se válido,
+     * calcula e grava a carga horária semanal (expediente) em $validated.
+     *
+     * Assume-se semana padrão de 5 dias úteis (segunda a sexta) para o cálculo semanal,
+     * já que a vaga não detalha o horário por dia da semana.
+     *
+     * @return string|null mensagem de erro, ou null se válido
+     */
+    private function validarESetarCargaHoraria(Request $request, array &$validated)
+    {
+        // Verificação de vagas do curso de Educomunicação - 8h diárias / 40 horas semanais
+        $limiteDiarioMinutos = ($request->curso == 'Curso de Educomunicação') ? 8 * 60 : 6 * 60;
+        $limiteSemanalMinutos = ($request->curso == 'Curso de Educomunicação') ? 40 * 60 : 30 * 60;
+
+        $totalDiarioMinutos = EstagioHorario::calcularTotalMinutos($request->hora_entrada, $request->hora_saida, $request->tempo_intervalo);
+
+        if ($totalDiarioMinutos === null || $totalDiarioMinutos <= 0) {
+            return 'Verifique o horário do estágio: a saída, descontado o tempo de intervalo, deve ser maior que a entrada.';
+        }
+
+        if ($totalDiarioMinutos > $limiteDiarioMinutos) {
+            $limiteHoras = intdiv($limiteDiarioMinutos, 60);
+            return "Carga Horária do Estágio não pode ser maior que {$limiteHoras} horas diárias!";
+        }
+
+        $totalSemanalMinutos = $totalDiarioMinutos * 5;
+        if ($totalSemanalMinutos > $limiteSemanalMinutos) {
+            $limiteHoras = intdiv($limiteSemanalMinutos, 60);
+            return "Carga Horária do Estágio não pode ser maior que {$limiteHoras} horas semanais!";
+        }
+
+        $validated['expediente'] = rtrim(rtrim(number_format($totalSemanalMinutos / 60, 2, '.', ''), '0'), '.');
+
+        return null;
     }
 
     public function destroy(Vaga $vaga){

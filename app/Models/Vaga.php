@@ -6,11 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Empresa;
 use App\Models\User;
+use App\Models\EstagioHorario;
 
 class Vaga extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    /* Carga horária diária (Saída - Entrada - Tempo de Intervalo), em minutos.
+       Reaproveita o mesmo cálculo usado na grade de horários do Estágio. */
+    public function getCargaHorariaDiariaMinutosAttribute() {
+        return EstagioHorario::calcularTotalMinutos($this->hora_entrada, $this->hora_saida, $this->tempo_intervalo);
+    }
+
+    public function getCargaHorariaDiariaAttribute() {
+        $minutos = $this->carga_horaria_diaria_minutos;
+        if ($minutos === null) {
+            return null;
+        }
+        return sprintf('%02d:%02d', intdiv($minutos, 60), $minutos % 60);
+    }
 
     public function getDivulgarAteAttribute($value) {
         /* No banco está YYYY-MM-DD, mas vamos retornar DD/MM/YYYY */

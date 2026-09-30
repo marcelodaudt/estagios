@@ -54,26 +54,32 @@
 
     <div class="row">
       <div class="col-sm form-group">
-        <label for="expediente" class="required"><strong>Carga Horária Semanal (Somente o Número):</strong></label>
-        <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" 
-        class="form-control" id="expediente" name="expediente" value="{{old('expediente',$vaga->expediente)}}">
-      </div>
-      <div class="col-sm form-group">
         <label for="salario" class="required"><strong>Valor mensal da Bolsa (Somente o Número):</strong></label>
-        <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" 
+        <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
         class="form-control" id="salario" name="salario" width="190" value="{{old('salario',$vaga->salario)}}">
-      </div>
-      <div class="col-sm form-group">
-        <label for="horario" class="required"><strong>Horário do Estágio:</strong></label>
-        <input type="text" class="form-control" id="horario" name="horario" width="190" value="{{old('horario',$vaga->horario)}}">
-      </div>
-      <div class="col-sm form-group">
-        <label for="intervalo" class="required"><strong>Horário do Intervalo:</strong></label>
-        <input type="text" class="form-control" id="intervalo" name="intervalo" width="190" value="{{old('intervalo',$vaga->intervalo)}}">
       </div>
       <div class="col-sm form-group">
         <label for="divulgar_ate" class="required"><strong>Divulgar até:</strong></label>
         <input type="text" class="form-control datepicker" id="divulgar_ate" name="divulgar_ate" value="{{old('divulgar_ate',$vaga->divulgar_ate)}}">
+      </div>
+    </div>
+
+    <div class='alert alert-danger' role='alert'>
+      <strong>Informe o horário do estágio (entrada e saída) e o tempo de intervalo. O horário do estágio deverá ser compatível com o horário escolar do(a) estudante e respeitar o limite máximo de 6 horas diárias e 30 horas semanais, conforme a legislação vigente.</strong>
+    </div>
+
+    <div class="row">
+      <div class="col-sm form-group">
+        <label for="hora_entrada" class="required"><strong>Entrada:</strong></label>
+        <input type="time" class="form-control" id="hora_entrada" name="hora_entrada" value="{{old('hora_entrada',$vaga->hora_entrada ? substr($vaga->hora_entrada,0,5) : '')}}">
+      </div>
+      <div class="col-sm form-group">
+        <label for="hora_saida" class="required"><strong>Saída:</strong></label>
+        <input type="time" class="form-control" id="hora_saida" name="hora_saida" value="{{old('hora_saida',$vaga->hora_saida ? substr($vaga->hora_saida,0,5) : '')}}">
+      </div>
+      <div class="col-sm form-group">
+        <label for="tempo_intervalo" class="required"><strong>Tempo de Intervalo:</strong></label>
+        <input type="time" class="form-control" id="tempo_intervalo" name="tempo_intervalo" value="{{old('tempo_intervalo',$vaga->tempo_intervalo ? substr($vaga->tempo_intervalo,0,5) : '')}}">
       </div>
     </div>
 
@@ -82,7 +88,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm form-group">
-            <label for="contato_email" class="required"><strong>E-mail:</strong></label>
+            <label for="contato_email"><strong>E-mail:</strong></label>
             <input type="text" class="form-control" id="contato_email" name="contato_email" value="{{old('contato_email',$vaga->contato_email)}}">
           </div>
         </div>

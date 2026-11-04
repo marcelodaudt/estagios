@@ -24,6 +24,11 @@ return new class extends Migration
             throw new \Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
+        // Bancos que já executaram a antiga migration duplicada (2026_09_29) já possuem as tabelas
+        if (Schema::hasTable($tableNames['permissions'])) {
+            return;
+        }
+
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             //$table->engine('InnoDB');
             $table->bigIncrements('id'); // permission id

@@ -148,32 +148,82 @@ aditivo por até 12 meses.
         <div class="alert alert-danger" role="alert">
             <strong>Atenção:</strong> O horário do estágio deverá ser compatível com o horário escolar do(a) estudante e respeitar o limite máximo de 6 horas diárias e 30 horas semanais, conforme a legislação vigente.
         </div>
-        <label class="required">Informe o horário do estágio para cada dia da semana, incluindo eventuais horários diferenciados, de forma que não haja conflito com o horário das aulas:</label>
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>Dia da semana</th>
-                        <th>Entrada</th>
-                        <th>Saída</th>
-                        <th>Tempo de Intervalo</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($estagio->diasSemanaOptions() as $dia => $label)
-                        <tr>
-                            <td>{{ $label }}</td>
-                            <td><input type="time" class="form-control" name="horarios[{{$dia}}][entrada]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.entrada", $estagio->horarios_por_dia[$dia]['entrada']) }}"></td>
-                            <td><input type="time" class="form-control" name="horarios[{{$dia}}][saida]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.saida", $estagio->horarios_por_dia[$dia]['saida']) }}"></td>
-                            <td><input type="time" class="form-control" name="horarios[{{$dia}}][intervalo]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.intervalo", $estagio->horarios_por_dia[$dia]['intervalo']) }}"></td>
-                            <td><input type="text" class="form-control" id="total-{{$dia}}" value="{{ $estagio->horarios_por_dia[$dia]['total'] }}" readonly></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <small class="form-text text-muted">O Total é calculado automaticamente (Saída menos Entrada, descontado o Tempo de Intervalo). Deixe a linha em branco nos dias sem atividade de estágio. A carga horária semanal (máximo 30h) e diária (máximo 6h) é calculada a partir dos horários informados aqui.</small>
+        @php
+            $tipoHorario = old('tipo_horario', $estagio->tipo_horario);
+            $horarioPadrao = $estagio->horario_padrao ?? ['entrada' => '', 'saida' => '', 'intervalo' => ''];
+        @endphp
+        <div class="alert alert-warning" role="alert">
+            <strong>Escolha uma das duas formas de preenchimento da carga horária (obrigatório):</strong>
+            <ul class="mb-0">
+                <li><b>Mesmo horário todos os dias:</b> informe uma única entrada, saída e tempo de intervalo, que serão <b>aplicados de segunda a sexta-feira</b>.</li>
+                <li><b>Horário detalhado por dia:</b> informe o horário de cada dia da semana, quando <b>houver horários diferenciados entre os dias</b> ou <b>atividades aos sábados</b>.</li>
+            </ul>
+            Em ambos os casos, valem os limites de 6 horas diárias e 30 horas semanais.
         </div>
+
+        <div class="form-group">
+            <label class="required">Forma de preenchimento da carga horária:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo_horario" id="tipo_horario_padrao" value="padrao" onchange="alternaTipoHorario()" {{ $tipoHorario == 'padrao' ? 'checked' : '' }}>
+                <label class="form-check-label" for="tipo_horario_padrao">Mesmo horário todos os dias (segunda a sexta-feira)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tipo_horario" id="tipo_horario_por_dia" value="por_dia" onchange="alternaTipoHorario()" {{ $tipoHorario == 'por_dia' ? 'checked' : '' }}>
+                <label class="form-check-label" for="tipo_horario_por_dia">Horário detalhado por dia da semana</label>
+            </div>
+        </div>
+
+        <div id="bloco-horario-padrao" style="{{ $tipoHorario == 'padrao' ? '' : 'display: none;' }}">
+            <label class="required">Informe o horário do estágio, que será aplicado de segunda a sexta-feira, de forma que não haja conflito com o horário das aulas:</label>
+            <div class="row">
+                <div class="col-sm form-group">
+                    <label for="horario_padrao_entrada">Entrada:</label>
+                    <input type="time" class="form-control" id="horario_padrao_entrada" name="horario_padrao[entrada]" oninput="calculaTotalPadrao()" value="{{ old('horario_padrao.entrada', $horarioPadrao['entrada']) }}">
+                </div>
+                <div class="col-sm form-group">
+                    <label for="horario_padrao_saida">Saída:</label>
+                    <input type="time" class="form-control" id="horario_padrao_saida" name="horario_padrao[saida]" oninput="calculaTotalPadrao()" value="{{ old('horario_padrao.saida', $horarioPadrao['saida']) }}">
+                </div>
+                <div class="col-sm form-group">
+                    <label for="horario_padrao_intervalo">Tempo de Intervalo:</label>
+                    <input type="time" class="form-control" id="horario_padrao_intervalo" name="horario_padrao[intervalo]" oninput="calculaTotalPadrao()" value="{{ old('horario_padrao.intervalo', $horarioPadrao['intervalo']) }}">
+                </div>
+                <div class="col-sm form-group">
+                    <label for="total-padrao">Total diário:</label>
+                    <input type="text" class="form-control" id="total-padrao" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div id="bloco-horario-por-dia" style="{{ $tipoHorario == 'por_dia' ? '' : 'display: none;' }}">
+            <label class="required">Informe o horário do estágio para cada dia da semana, incluindo eventuais horários diferenciados, de forma que não haja conflito com o horário das aulas:</label>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Dia da semana</th>
+                            <th>Entrada</th>
+                            <th>Saída</th>
+                            <th>Tempo de Intervalo</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($estagio->diasSemanaOptions() as $dia => $label)
+                            <tr>
+                                <td>{{ $label }}</td>
+                                <td><input type="time" class="form-control" name="horarios[{{$dia}}][entrada]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.entrada", $estagio->horarios_por_dia[$dia]['entrada']) }}"></td>
+                                <td><input type="time" class="form-control" name="horarios[{{$dia}}][saida]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.saida", $estagio->horarios_por_dia[$dia]['saida']) }}"></td>
+                                <td><input type="time" class="form-control" name="horarios[{{$dia}}][intervalo]" oninput="calculaTotalHorario('{{$dia}}')" value="{{ old("horarios.$dia.intervalo", $estagio->horarios_por_dia[$dia]['intervalo']) }}"></td>
+                                <td><input type="text" class="form-control" id="total-{{$dia}}" value="{{ $estagio->horarios_por_dia[$dia]['total'] }}" readonly></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <small class="form-text text-muted">O Total é calculado automaticamente (Saída menos Entrada, descontado o Tempo de Intervalo). Deixe a linha em branco nos dias sem atividade de estágio.</small>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-sm form-group">
                 <label for="total-semanal"><b>Carga Horária Semanal Total (máximo 30h):</b></label>

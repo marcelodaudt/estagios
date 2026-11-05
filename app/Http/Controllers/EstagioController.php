@@ -91,22 +91,14 @@ class EstagioController extends Controller
         $this->authorize('empresa');
         $validated = $request->validated();
 
-        // A carga horária semanal/diária é calculada a partir da grade de horários por dia da semana
-        $horarios = $validated['horarios'] ?? [];
-        unset($validated['horarios']);
-
-        // Limites de 6 horas diárias e 30 horas semanais, para todos os departamentos
-        $resultado = EstagioHorario::processarGrade($horarios);
+        // Carga horária: horário padrão (segunda a sexta) ou detalhado por dia da semana.
+        // Limites de 6 horas diárias e 30 horas semanais, para todos os departamentos.
+        $resultado = EstagioHorario::processarFormulario($validated);
         if ($resultado['erro']) {
             request()->session()->flash('alert-danger', $resultado['erro']);
             return redirect("estagios/create")->withInput();
         }
-
         $linhasHorario = $resultado['linhas'];
-        $validated['cargahoras'] = intdiv($resultado['totalSemanalMinutos'], 60);
-        $validated['cargaminutos'] = $resultado['totalSemanalMinutos'] % 60;
-        $validated['cargahorasdiaria'] = intdiv($resultado['maiorDiaMinutos'], 60);
-        $validated['cargaminutosdiaria'] = $resultado['maiorDiaMinutos'] % 60;
 
         // Verificação se existe outro estágio para o mesmo aluno e mesma empresa
         $verificador = DB::table('estagios')

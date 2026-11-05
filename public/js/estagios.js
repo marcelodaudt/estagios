@@ -55,10 +55,79 @@ function calculaTotalHorario(dia) {
     calculaTotalSemanal();
 }
 
-// Soma o Total de cada dia da semana e atualiza a Carga Horária Semanal Total
+// Forma de preenchimento da carga horária escolhida: 'padrao', 'por_dia' ou null
+function tipoHorarioSelecionado() {
+    var marcado = document.querySelector('input[name="tipo_horario"]:checked');
+    return marcado ? marcado.value : null;
+}
+
+// Mostra o bloco correspondente à forma de preenchimento escolhida
+function alternaTipoHorario() {
+    var tipo = tipoHorarioSelecionado();
+    var padrao = document.getElementById('bloco-horario-padrao');
+    var porDia = document.getElementById('bloco-horario-por-dia');
+    if (padrao) {
+        padrao.style.display = (tipo === 'padrao') ? '' : 'none';
+    }
+    if (porDia) {
+        porDia.style.display = (tipo === 'por_dia') ? '' : 'none';
+    }
+    calculaTotalPadrao();
+    calculaTotalSemanal();
+}
+
+// Total diário do horário padrão (mesmo horário de segunda a sexta)
+var DIAS_HORARIO_PADRAO = 5;
+
+function calculaTotalPadrao() {
+    var totalCampo = document.getElementById('total-padrao');
+    if (!totalCampo) {
+        return;
+    }
+    var entrada = document.getElementById('horario_padrao_entrada').value;
+    var saida = document.getElementById('horario_padrao_saida').value;
+    var intervalo = document.getElementById('horario_padrao_intervalo').value;
+
+    if (!entrada || !saida) {
+        totalCampo.value = '';
+    } else {
+        var total = paraMinutos(saida) - paraMinutos(entrada);
+        if (intervalo) {
+            total -= paraMinutos(intervalo);
+        }
+        totalCampo.value = (total <= 0) ? 'Horário inválido' : formataMinutos(total);
+    }
+    calculaTotalSemanal();
+}
+
+function formataMinutos(total) {
+    var horas = Math.floor(total / 60);
+    var minutos = total % 60;
+    return (horas < 10 ? '0' : '') + horas + ':' + (minutos < 10 ? '0' : '') + minutos;
+}
+
+// Atualiza a Carga Horária Semanal Total conforme a forma de preenchimento escolhida
 function calculaTotalSemanal() {
     var totalSemanalCampo = document.getElementById('total-semanal');
     if (!totalSemanalCampo) {
+        return;
+    }
+
+    var tipo = tipoHorarioSelecionado();
+    if (tipo === null && document.querySelector('input[name="tipo_horario"]')) {
+        totalSemanalCampo.value = '';
+        return;
+    }
+
+    if (tipo === 'padrao') {
+        var totalPadrao = document.getElementById('total-padrao').value;
+        if (!totalPadrao) {
+            totalSemanalCampo.value = '';
+        } else if (totalPadrao === 'Horário inválido') {
+            totalSemanalCampo.value = 'Verifique os horários acima';
+        } else {
+            totalSemanalCampo.value = formataMinutos(paraMinutos(totalPadrao) * DIAS_HORARIO_PADRAO);
+        }
         return;
     }
 
@@ -98,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
             calculaTotalHorario(dia);
         }
     });
+    calculaTotalPadrao();
     calculaTotalSemanal();
 });
 

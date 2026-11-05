@@ -55,6 +55,17 @@ class EstagioRequest extends FormRequest
             'email_do_supervisor_estagio' => 'required|email|max:255',
         ];
 
+        // Forma de preenchimento da carga horária (obrigatória): horário padrão ou por dia
+        $rules['tipo_horario'] = ['required', Rule::in([
+            \App\Models\EstagioHorario::TIPO_HORARIO_PADRAO,
+            \App\Models\EstagioHorario::TIPO_HORARIO_POR_DIA,
+        ])];
+
+        // Horário padrão (mesmo horário de segunda a sexta)
+        $rules['horario_padrao.entrada'] = 'nullable|required_if:tipo_horario,padrao|date_format:H:i';
+        $rules['horario_padrao.saida'] = 'nullable|required_if:tipo_horario,padrao|date_format:H:i';
+        $rules['horario_padrao.intervalo'] = 'nullable|date_format:H:i';
+
         // Grade de horários por dia da semana: entrada, saída e tempo de intervalo
         foreach (array_keys((new \App\Models\Estagio)->diasSemanaOptions()) as $dia) {
             $rules["horarios.{$dia}.entrada"] = 'nullable|date_format:H:i';
@@ -123,6 +134,9 @@ class EstagioRequest extends FormRequest
             'tipoestagio.in' => 'Selecione uma modalidade de estágio válida.',
             'modalidade_trabalho.required' => 'Selecione a modalidade de trabalho (Presencial, Home-office ou Híbrido).',
             'modalidade_trabalho.in' => 'Selecione uma modalidade de trabalho válida.',
+            'tipo_horario.required' => 'Escolha uma das formas de preenchimento da carga horária: mesmo horário todos os dias ou horário detalhado por dia.',
+            'horario_padrao.entrada.required_if' => 'Informe a entrada do horário padrão (mesmo horário todos os dias).',
+            'horario_padrao.saida.required_if' => 'Informe a saída do horário padrão (mesmo horário todos os dias).',
             'valorbolsa.regex' => 'Informe o valor da bolsa no formato 0.000,00.',
             'auxiliotransporte.regex' => 'Informe o valor do auxílio transporte no formato 0.000,00.',
         ];

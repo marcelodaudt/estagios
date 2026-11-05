@@ -8,6 +8,7 @@ use App\Http\Requests\EstagioRequest;
 use Auth;
 use PDF;
 use App\Models\Estagio;
+use App\Models\EstagioHorario;
 use App\Models\User;
 use App\Models\Aditivo;
 use Illuminate\Support\Facades\Gate;
@@ -31,7 +32,20 @@ class EstagioWorkflowController extends Controller
 
         if ( Gate::allows('empresa',$estagio->cnpj) | Gate::allows('admin') ) {
             $validated = $request->validated();
+
+            // Carga horária: horário padrão (segunda a sexta) ou detalhado por dia da semana
+            $resultado = EstagioHorario::processarFormulario($validated);
+            if ($resultado['erro']) {
+                request()->session()->flash('alert-danger', $resultado['erro']);
+                return redirect("/estagios/{$estagio->id}")->withInput();
+            }
+
             $estagio->update($validated);
+
+            $estagio->horarios()->delete();
+            foreach ($resultado['linhas'] as $linha) {
+                $estagio->horarios()->create($linha);
+            }
 
             if($request->enviar_para_analise_tecnica=="enviar_para_analise_tecnica"){
                 $estagio->last_status = 'em_elaboracao';

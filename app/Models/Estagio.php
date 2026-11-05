@@ -71,6 +71,36 @@ class Estagio extends Model implements Auditable
         return $porDia;
     }
 
+    /* Forma de preenchimento da carga horária, para pré-selecionar no formulário de edição:
+       'padrao' quando o estágio tem o mesmo horário de segunda a sexta (e nenhum outro dia),
+       'por_dia' nos demais casos, e null para estágio novo. */
+    public function getTipoHorarioAttribute() {
+        if (!$this->exists || $this->horarios->isEmpty()) {
+            return null;
+        }
+        return $this->horario_padrao ? EstagioHorario::TIPO_HORARIO_PADRAO : EstagioHorario::TIPO_HORARIO_POR_DIA;
+    }
+
+    /* Entrada/saída/intervalo do horário padrão (segunda a sexta), se o estágio tiver
+       exatamente o mesmo horário nesses dias e nenhum outro; senão, null. */
+    public function getHorarioPadraoAttribute() {
+        $porDia = $this->horarios_por_dia;
+        $referencia = $porDia[EstagioHorario::DIAS_HORARIO_PADRAO[0]] ?? null;
+        if (empty($referencia['entrada'])) {
+            return null;
+        }
+        foreach ($porDia as $dia => $h) {
+            $noPadrao = in_array($dia, EstagioHorario::DIAS_HORARIO_PADRAO);
+            if ($noPadrao && ($h['entrada'] !== $referencia['entrada'] || $h['saida'] !== $referencia['saida'] || $h['intervalo'] !== $referencia['intervalo'])) {
+                return null;
+            }
+            if (!$noPadrao && !empty($h['entrada'])) {
+                return null;
+            }
+        }
+        return $referencia;
+    }
+
     /* Resumo textual dos horários por dia da semana, para uso nos termos em PDF. */
     public function getHorarioResumoAttribute() {
         $partes = [];

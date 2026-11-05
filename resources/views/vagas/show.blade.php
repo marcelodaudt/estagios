@@ -55,7 +55,7 @@
       <div class="col-sm">
         <b>Título da Vaga:</b> {{ $vaga->titulo }}
         <br></br>
-        <b>Curso:</b> {{ $vaga->curso }}
+        <b>Curso(s):</b> {{ $vaga->cursos_texto }}
         <br></br>
         <b>Descrição da Vaga:</b> {{ $vaga->descricao }}
         <br></br>
@@ -65,7 +65,7 @@
         <br></br>
         <b>Carga Horária Semanal:</b> {{ $vaga->expediente }} Horas
         <br></br>
-        <b>Valor mensal da Bolsa:</b> R$ {{ $vaga->salario }}
+        <b>Valor mensal da Bolsa:</b> R$ {{ $vaga->salario_formatado }}
         <br></br>
         <b>Entrada:</b> {{ substr($vaga->hora_entrada,0,5) }}
         <br></br>
@@ -82,7 +82,12 @@
         <table style="width: 50%;">
           <tr>
             <td style="width: 5%;">&nbsp;</td>
-            <td style="width: 15%;"><b>E-mail:</b></td>
+            <td style="width: 15%;"><b>Nome:</b></td>
+            <td> {{ $vaga->contato_nome ?? 'Não informado' }}</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><b>E-mail:</b></td>
             <td> {{ $vaga->contato_email ?? 'Não informado' }}</td>
           </tr>
           <tr>

@@ -62,10 +62,10 @@
             <b>Média ponderada:</b> {{ $estagio->media_ponderada }}<br>
             <b>Periodo de Matrícula</b>: {{ $estagio->periodo }}<br>
             <b>Modalidade do Estágio</b>: {{ $estagio->tipoestagio }}<br>
+            <b>Modalidade de trabalho</b>: {{ $estagio->modalidade_trabalho ?? 'Não informada' }}<br>
             <b>Departamento</b>: {{ $estagio->departamento }}<br>
             <b>Valor da bolsa:</b> {{$estagio->valorbolsa}}<br>
             <b>Tipo de bolsa:</b> {{$estagio->tipobolsa}}<br>
-            <b>Justificativa:</b> {{$estagio->justificativa}}<br>
             <b>Atividades a serem desenvolvidas:</b> {{$estagio->atividades}}<br>
             <b>O horário é compatível com o curso?:</b> {{$estagio->horariocompativel}}<br>
             <b>As ativídades são pertinentes ao curso?:</b> {{$estagio->atividadespertinentes}}<br> 
@@ -110,8 +110,8 @@
             <b>Carga horária semanal (máximo 30 horas):</b> {{$estagio->cargahoras}} horas e {{$estagio->cargaminutos}} minutos.<br>
             <b>Carga horária diária (máximo 6 horas):</b> {{$estagio->cargahorasdiaria}} horas e {{$estagio->cargaminutosdiaria}} minutos.<br>
             <b>Horário por dia da semana:</b><br>
-            @foreach ($estagio->diasSemanaOptions() as $dia => $label)
-                @if ($estagio->horarios_por_dia[$dia]['entrada'])
+            @foreach ($estagio->diasSemanaLabels() as $dia => $label)
+                @if (!empty($estagio->horarios_por_dia[$dia]['entrada']))
                     &nbsp;&nbsp;{{ $label }}: Entrada {{ $estagio->horarios_por_dia[$dia]['entrada'] }},
                     Saída {{ $estagio->horarios_por_dia[$dia]['saida'] }}
                     @if ($estagio->horarios_por_dia[$dia]['intervalo'])

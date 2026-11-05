@@ -1,6 +1,15 @@
 jQuery(function ($) {
     $(".cnpj").mask('00.000.000/0000-00');
 
+    // Máscara monetária (R$) - mesma do cadastro de vagas
+    $('.money').mask('#.##0,00', { reverse: true });
+
+    // Data de início: somente a partir de hoje + N dias (sem datas retroativas)
+    var $dataInicial = $('#data_inicial[data-min-dias]');
+    if ($dataInicial.length && $dataInicial.hasClass('hasDatepicker')) {
+        $dataInicial.datepicker('option', 'minDate', parseInt($dataInicial.data('min-dias'), 10));
+    }
+
     // Mostra informações dos alunos abaixo do input
     $('#numero_usp').change(function(){
         var data = { codpes: $( "#numero_usp" ).val() };
@@ -56,7 +65,7 @@ function calculaTotalSemanal() {
     var totalGeral = 0;
     var algumInvalido = false;
 
-    ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'].forEach(function (dia) {
+    ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'].forEach(function (dia) {
         var campo = document.getElementById('total-' + dia);
         if (!campo || !campo.value) {
             return;
@@ -84,7 +93,7 @@ function calculaTotalSemanal() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'].forEach(function (dia) {
+    ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'].forEach(function (dia) {
         if (document.querySelector('input[name="horarios[' + dia + '][entrada]"]')) {
             calculaTotalHorario(dia);
         }

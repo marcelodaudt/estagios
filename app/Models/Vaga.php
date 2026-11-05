@@ -13,6 +13,33 @@ class Vaga extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'curso' => 'array',
+    ];
+
+    /* Cursos selecionados, separados por vírgula, para exibição */
+    public function getCursosTextoAttribute() {
+        return implode(', ', (array) $this->curso);
+    }
+
+    /* Valor da bolsa chega com máscara monetária (ex.: 1.500,00) e é salvo como decimal (ex.: 1500.00) */
+    public function setSalarioAttribute($value) {
+        $value = trim((string) $value);
+        if (strpos($value, ',') !== false) {
+            $value = str_replace(',', '.', str_replace('.', '', $value));
+        }
+        $this->attributes['salario'] = is_numeric($value) ? number_format((float) $value, 2, '.', '') : $value;
+    }
+
+    /* Valor da bolsa formatado em reais (ex.: 1.500,00) */
+    public function getSalarioFormatadoAttribute() {
+        $valor = $this->salario;
+        if ($valor === null || $valor === '') {
+            return '';
+        }
+        return is_numeric($valor) ? number_format((float) $valor, 2, ',', '.') : $valor;
+    }
+
     /* Carga horária diária (Saída - Entrada - Tempo de Intervalo), em minutos.
        Reaproveita o mesmo cálculo usado na grade de horários do Estágio. */
     public function getCargaHorariaDiariaMinutosAttribute() {
@@ -48,7 +75,6 @@ class Vaga extends Model
     public function cursoOptions(){
         return [
             'Curso de Artes Cênicas',
-            'Curso de Artes Visuais',
             'Curso de Artes Visuais',
             'Curso de Audiovisual',
             'Curso de Biblioteconomia',

@@ -47,8 +47,13 @@ aditivo por até 12 meses.
         <div class="row">
             <div class="col-sm form-group">
                 <div class="form-group">
-                    <label for="horariocompativel" class="required">O horário é compatível com o curso? </label>
-                    <input type="text" class="form-control" name="horariocompativel" value="{{old('horariocompativel',$estagio->horariocompativel)}}">
+                    <label for="modalidade_trabalho" class="required">Modalidade de trabalho: </label>
+                    <select name="modalidade_trabalho" class="form-control" id="modalidade_trabalho">
+                        <option value="">- Selecione -</option>
+                        @foreach ($estagio->modalidadeTrabalhoOptions() as $option)
+                            <option value="{{$option}}" {{ old('modalidade_trabalho', $estagio->modalidade_trabalho) == $option ? 'selected' : '' }}>{{$option}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-sm form-group">
@@ -75,7 +80,10 @@ aditivo por até 12 meses.
             <div class="col-sm form-group">
                 <div class="form-group">
                     <label for="valorbolsa" class="required">Valor da Bolsa (R$): </label>
-                    <input type="text" class="form-control" id="valorbolsa" name="valorbolsa" value="{{old('valorbolsa',$estagio->valorbolsa)}}">
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                        <input type="text" class="form-control money" id="valorbolsa" name="valorbolsa" placeholder="0,00" value="{{old('valorbolsa', \App\Models\Estagio::formataMoeda($estagio->valorbolsa))}}">
+                    </div>
                 </div>
             </div>
             <div class="col-sm form-group">
@@ -115,7 +123,11 @@ aditivo por até 12 meses.
             <div class="col-sm form-group">
                 <div class="form-group">
                 <label for="data_inicial" class="required">Data de início do Estágio: </label>
-                    <input type="text" class="form-control datepicker" id="data_inicial" name="data_inicial" value="{{old('data_inicial',$estagio->data_inicial)}}" onblur="calculodata(this);">
+                    <input type="text" class="form-control datepicker @error('data_inicial') is-invalid @enderror" id="data_inicial" name="data_inicial" value="{{old('data_inicial',$estagio->data_inicial)}}" data-min-dias="{{ \App\Http\Requests\EstagioRequest::ANTECEDENCIA_MINIMA_DIAS }}" onblur="calculodata(this);">
+                    @error('data_inicial')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text text-muted">A data de início deve ser, no mínimo, 7 dias após a data de hoje (a partir de {{ \App\Http\Requests\EstagioRequest::dataInicialMinima()->format('d/m/Y') }}). Não são aceitas datas retroativas.</small>
                 </div>
             </div>    
             <div class="col-sm form-group">
@@ -125,10 +137,6 @@ aditivo por até 12 meses.
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="justificativa">Justificativa (Caso o estágio esteja sendo cadastrado em data retroativa, apresente abaixo a justificativa): </label>
-            <textarea name="justificativa" rows="5" cols="60">{{old('justificativa',$estagio->justificativa)}}</textarea>
-        </div>
     </div>
 </div>
 
@@ -137,6 +145,9 @@ aditivo por até 12 meses.
 <div class="card">
     <div class="card-header">Carga Horária</div>
     <div class="card-body">
+        <div class="alert alert-danger" role="alert">
+            <strong>Atenção:</strong> O horário do estágio deverá ser compatível com o horário escolar do(a) estudante e respeitar o limite máximo de 6 horas diárias e 30 horas semanais, conforme a legislação vigente.
+        </div>
         <label class="required">Informe o horário do estágio para cada dia da semana, incluindo eventuais horários diferenciados, de forma que não haja conflito com o horário das aulas:</label>
         <div class="table-responsive">
             <table class="table table-bordered table-sm">
@@ -176,9 +187,6 @@ aditivo por até 12 meses.
             </div>
         </div>
         <div class="alert alert-danger" role="alert">
-            <strong>Atenção:</strong> O horário do estágio deverá ser compatível com o horário escolar do(a) estudante e respeitar o limite máximo de 6 horas diárias e 30 horas semanais, conforme a legislação vigente.
-        </div>
-        <div class="alert alert-danger" role="alert">
             <strong>Atenção:</strong> Algumas Coordenações de Curso exigem intervalo mínimo de 1 hora entre o estágio presencial e as aulas para deslocamento. Casos específicos poderão ser analisados individualmente, inclusive quando as atividades forem realizadas remotamente. O horário estará sujeito à análise da Coordenação do Curso. Em caso de estágio híbrido, informe os dias presenciais e remotos.
         </div>
     </div>
@@ -193,7 +201,10 @@ aditivo por até 12 meses.
             <div class="col-sm form-group">
                 <div class="form-group">
                     <label for="auxiliotransporte" class="required">Valor do Auxílio transporte (R$): </label>
-                    <input type="text" class="form-control" id="auxiliotransporte" name="auxiliotransporte" value="{{old('auxiliotransporte',$estagio->auxiliotransporte)}}"> 
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+                        <input type="text" class="form-control money" id="auxiliotransporte" name="auxiliotransporte" placeholder="0,00" value="{{old('auxiliotransporte', \App\Models\Estagio::formataMoeda($estagio->auxiliotransporte))}}">
+                    </div>
                 </div>
             </div>
             <div class="col-sm form-group">

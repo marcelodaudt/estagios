@@ -40,8 +40,13 @@ class Estagio extends Model implements Auditable
             'quinta' => 'Quinta-feira',
             'sexta' => 'Sexta-feira',
             'sabado' => 'Sábado',
-            'domingo' => 'Domingo',
         ];
+    }
+
+    /* Rótulos de todos os dias, inclusive Domingo, que não é mais oferecido no formulário
+       mas pode existir em estágios cadastrados anteriormente (exibição/termos em PDF). */
+    public function diasSemanaLabels(){
+        return $this->diasSemanaOptions() + ['domingo' => 'Domingo'];
     }
 
     /* Monta, para cada dia da semana, a entrada/saída/intervalo já cadastrados,
@@ -69,8 +74,8 @@ class Estagio extends Model implements Auditable
     /* Resumo textual dos horários por dia da semana, para uso nos termos em PDF. */
     public function getHorarioResumoAttribute() {
         $partes = [];
-        foreach ($this->diasSemanaOptions() as $dia => $label) {
-            $h = $this->horarios_por_dia[$dia];
+        foreach ($this->diasSemanaLabels() as $dia => $label) {
+            $h = $this->horarios_por_dia[$dia] ?? null;
             if (empty($h['entrada'])) {
                 continue;
             }
@@ -107,8 +112,16 @@ class Estagio extends Model implements Auditable
     public function tipoestagioOptions(){
         return [
             'Obrigatório Remunerado',
-            'Obrigatório Não-remunerado',
-            'Não-obrigatório Remunerado'
+            'Obrigatório Não Remunerado',
+            'Não Obrigatório Remunerado'
+        ];
+    }
+
+    public function modalidadeTrabalhoOptions(){
+        return [
+            'Presencial',
+            'Home-office',
+            'Híbrido'
         ];
     }
 
@@ -159,6 +172,18 @@ class Estagio extends Model implements Auditable
         ];
     }
     
+    /* Formata um valor monetário no padrão brasileiro (ex.: 1.500,00), usado para
+       pré-preencher os campos com máscara monetária. Valores antigos, digitados sem
+       máscara (ex.: "500", "500.50", "R$ 500"), são convertidos quando possível. */
+    public static function formataMoeda($valor) {
+        $valor = trim(str_ireplace('R$', '', (string) $valor));
+        if ($valor === '' || preg_match('/^\d{1,3}(\.\d{3})*,\d{2}$/', $valor)) {
+            return $valor;
+        }
+        $numero = (strpos($valor, ',') !== false) ? str_replace(',', '.', str_replace('.', '', $valor)) : $valor;
+        return is_numeric($numero) ? number_format((float) $numero, 2, ',', '.') : $valor;
+    }
+
     public function getDataInicialAttribute($value) {
         return implode('/',array_reverse(explode('-',$value)));
     }

@@ -1,8 +1,9 @@
 @extends('main') 
 
-@section('javascripts_head')
+@section('javascripts_bottom')
+  @parent
   <script src="{{asset('/js/vagas.js')}}"></script>
-@endsection('javascript_head')
+@endsection('javascripts_bottom')
 
 @section('styles')
   <link rel="stylesheet" type="text/css" href="{{asset('/css/vagas.css')}}">

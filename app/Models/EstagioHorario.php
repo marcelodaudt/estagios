@@ -50,17 +50,18 @@ class EstagioHorario extends Model
         return sprintf('%02d:%02d', intdiv($minutos, 60), $minutos % 60);
     }
 
+    // Limites legais de carga horária do estágio, válidos para todos os cursos/departamentos
     const LIMITE_DIARIO_MINUTOS = 6 * 60;
+    const LIMITE_SEMANAL_MINUTOS = 30 * 60;
 
     /**
      * Valida e totaliza a grade de horários por dia da semana submetida no formulário.
      * Não depende de sessão/HTTP, para poder ser testado isoladamente.
      *
      * @param array $horarios   ex.: ['segunda' => ['entrada'=>'08:00','saida'=>'17:00','intervalo'=>'01:00'], ...]
-     * @param int   $limiteSemanalMinutos
      * @return array{erro: ?string, linhas?: array, totalSemanalMinutos?: int, maiorDiaMinutos?: int}
      */
-    public static function processarGrade(array $horarios, int $limiteSemanalMinutos)
+    public static function processarGrade(array $horarios)
     {
         $totalSemanalMinutos = 0;
         $maiorDiaMinutos = 0;
@@ -103,8 +104,8 @@ class EstagioHorario extends Model
             return ['erro' => 'Informe o horário do estágio em pelo menos um dia da semana.'];
         }
 
-        if ($totalSemanalMinutos > $limiteSemanalMinutos) {
-            $limiteHoras = intdiv($limiteSemanalMinutos, 60);
+        if ($totalSemanalMinutos > self::LIMITE_SEMANAL_MINUTOS) {
+            $limiteHoras = intdiv(self::LIMITE_SEMANAL_MINUTOS, 60);
             return ['erro' => "Carga Horária do Estágio não pode ser maior que {$limiteHoras} horas!"];
         }
 

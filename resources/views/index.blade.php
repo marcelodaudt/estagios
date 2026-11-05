@@ -52,7 +52,7 @@
             @if(($vaga->status) == 'Aprovada')
               <td><h4>{{$vaga->titulo}}</h4>
               Carga horária semanal: {{ $vaga->expediente }} horas <br>
-              Valor da bolsa: R$ {{ $vaga->salario }}</td>
+              Valor da bolsa: R$ {{ $vaga->salario_formatado }}</td>
               <td><a href="{{ $app_url }}/vagas/{{$vaga->id}}">Acessar vaga para mais detalhes</a></td>
             @endif
           </tr>

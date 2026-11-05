@@ -95,10 +95,8 @@ class EstagioController extends Controller
         $horarios = $validated['horarios'] ?? [];
         unset($validated['horarios']);
 
-        // Verificação de estágios do CCA - 40 horas semanais / demais departamentos - 30 horas semanais
-        $limiteSemanalMinutos = ($request->departamento == 'CCA - Educomunicação') ? 40 * 60 : 30 * 60;
-
-        $resultado = EstagioHorario::processarGrade($horarios, $limiteSemanalMinutos);
+        // Limites de 6 horas diárias e 30 horas semanais, para todos os departamentos
+        $resultado = EstagioHorario::processarGrade($horarios);
         if ($resultado['erro']) {
             request()->session()->flash('alert-danger', $resultado['erro']);
             return redirect("estagios/create")->withInput();

@@ -16,22 +16,14 @@
     <div class="row">
       <div class="col-sm form-group">
         <div class="form-group">
-          <label for="curso" class="required"><strong>Curso:</strong></label>
-          <select name="curso" class="form-control" id="curso">
-            <option value="" selected="">- Selecione -</option>
-              @foreach ($vaga->cursoOptions() as $option)
-                @if (old('curso') == '' and isset($vaga->curso) )
-                  <option value="{{$option}}" {{ ( $vaga->curso == $option) ? 'selected' : ''}}>
-                    {{$option}}
-                  </option>
-                @else
-                  <option value="{{$option}}" {{ ( old('curso') == $option) ? 'selected' : ''}}>
-                    {{$option}}
-                  </option>
-                @endif
-              @endforeach
+          <label for="curso" class="required"><strong>Curso(s):</strong></label>
+          @php $cursosSelecionados = (array) old('curso', $vaga->curso ?? []); @endphp
+          <select name="curso[]" class="form-control" id="curso" multiple style="width: 100%;">
+            @foreach ($vaga->cursoOptions() as $option)
+              <option value="{{$option}}" {{ in_array($option, $cursosSelecionados) ? 'selected' : '' }}>{{$option}}</option>
+            @endforeach
           </select>
-          <span id="curso" style="font-size: 0.8em; color: #666;">Escolha o curso ao qual a vaga é destinada.</span>
+          <span style="font-size: 0.8em; color: #666;">Escolha um ou mais cursos aos quais a vaga é destinada.</span>
         </div>
       </div>
     </div>
@@ -54,9 +46,11 @@
 
     <div class="row">
       <div class="col-sm form-group">
-        <label for="salario" class="required"><strong>Valor mensal da Bolsa (Somente o Número):</strong></label>
-        <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-        class="form-control" id="salario" name="salario" width="190" value="{{old('salario',$vaga->salario)}}">
+        <label for="salario" class="required"><strong>Valor mensal da Bolsa (R$):</strong></label>
+        <div class="input-group">
+          <div class="input-group-prepend"><span class="input-group-text">R$</span></div>
+          <input type="text" class="form-control money" id="salario" name="salario" placeholder="0,00" value="{{old('salario',$vaga->salario_formatado)}}">
+        </div>
       </div>
       <div class="col-sm form-group">
         <label for="divulgar_ate" class="required"><strong>Divulgar até:</strong></label>
@@ -86,6 +80,12 @@
     <div class="card">
       <div class="card-header"><strong>Contatos</strong></div>
       <div class="card-body">
+        <div class="row">
+          <div class="col-sm form-group">
+            <label for="contato_nome"><strong>Nome do contato:</strong></label>
+            <input type="text" class="form-control" id="contato_nome" name="contato_nome" value="{{old('contato_nome',$vaga->contato_nome)}}">
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm form-group">
             <label for="contato_email"><strong>E-mail:</strong></label>

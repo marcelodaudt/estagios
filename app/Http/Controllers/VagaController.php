@@ -82,9 +82,9 @@ class VagaController extends Controller
      */
     private function validarESetarCargaHoraria(Request $request, array &$validated)
     {
-        // Verificação de vagas do curso de Educomunicação - 8h diárias / 40 horas semanais
-        $limiteDiarioMinutos = ($request->curso == 'Curso de Educomunicação') ? 8 * 60 : 6 * 60;
-        $limiteSemanalMinutos = ($request->curso == 'Curso de Educomunicação') ? 40 * 60 : 30 * 60;
+        // Limites de 6 horas diárias e 30 horas semanais, para todos os cursos
+        $limiteDiarioMinutos = EstagioHorario::LIMITE_DIARIO_MINUTOS;
+        $limiteSemanalMinutos = EstagioHorario::LIMITE_SEMANAL_MINUTOS;
 
         $totalDiarioMinutos = EstagioHorario::calcularTotalMinutos($request->hora_entrada, $request->hora_saida, $request->tempo_intervalo);
 

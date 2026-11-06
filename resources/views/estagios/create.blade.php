@@ -4,7 +4,7 @@
 
 <form method="POST" action="{{ $app_url }}/estagios">
 @csrf
-<div style="text-align: center;"><b>Aviso Importante:</b> Envie a documentação com pelo menos <b>10 dias de antecedência</b>. A tramitação leva de 5 a 15 dias úteis, desde que não haja pendências. <b>Não serão aceitas datas retroativas</b>.</div>
+<div style="text-align: center;"><b>Atenção!</b> Os dados informados a seguir constarão no Termo de Compromisso e no Plano de Estágio.<br> O preenchimento e o encaminhamento devem ser realizados com antecedência mínima de 10 dias úteis, para que haja tempo hábil para a tramitação e as assinaturas antes da data de início do estágio.</div>
 @include ('estagios.form')
 
 <div class="form-group">
